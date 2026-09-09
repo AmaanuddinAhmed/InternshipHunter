@@ -3462,5 +3462,97 @@
       "search_query": "software development intern",
       "found_at": "2026-09-09T17:19:59.166469"
     }
+  },
+  {
+    "company": "Joveo",
+    "role": "Software Engineering Intern / Back End Developer",
+    "job_url": "https://in.jooble.org/jdp/5995199810772247499",
+    "location": "Bengaluru, India",
+    "work_mode": "On-site (5 days a week)",
+    "job_type": "Internship",
+    "duration": "UNKNOWN",
+    "stipend": {
+      "status": "UNKNOWN",
+      "raw": "Not mentioned",
+      "guaranteed_min_inr": 0,
+      "guaranteed_max_inr": 0,
+      "incentive_included": false
+    },
+    "eligibility": {
+      "status": "ELIGIBLE",
+      "reasons": [
+        "Candidate is pursuing MCA",
+        "Skills match the technical expectations of the role"
+      ]
+    },
+    "availability": {
+      "status": "UNKNOWN",
+      "reason": "Availability not explicitly stated in the job description or career brain."
+    },
+    "ppo": {
+      "status": "NOT_MENTIONED",
+      "evidence": "No mention of PPO or conversion in the job snippet."
+    },
+    "required_skills": [
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Next.js"
+    ],
+    "preferred_skills": [],
+    "demonstrated_matches": [
+      "Node.js",
+      "Express.js",
+      "React.js"
+    ],
+    "skill_gaps": [
+      "Next.js"
+    ],
+    "hard_blockers": [],
+    "red_flags": [
+      "Stipend is not disclosed",
+      "Fixed shift timing (2-9 pm) might be required"
+    ],
+    "scores": {
+      "technical_fit": 25,
+      "experience_fit": 20,
+      "role_fit": 15,
+      "ppo_score": 0,
+      "compensation_fit": 0,
+      "opportunity_quality": 6,
+      "overall_score": 66
+    },
+    "recommendation": "STRETCH",
+    "recommended_resume": "Default Full Stack / MERN Resume",
+    "interview_topics": [
+      "Node.js and Express.js architecture",
+      "React.js and Next.js differences/usage",
+      "Full stack system design and prototyping"
+    ],
+    "reasoning": {
+      "why_apply": [
+        "Matches primary MERN stack skill set (Node.js, Express.js, React.js)",
+        "Good opportunity for full stack experience"
+      ],
+      "why_not": [
+        "Stipend details are completely unknown",
+        "No mention of PPO/conversion",
+        "Evening shift timing (2-9 pm)"
+      ]
+    },
+    "_job": {
+      "job_id": 5995199810772247499,
+      "title": "Back End Developer",
+      "company": "Joveo",
+      "location": "Bangalore",
+      "salary": "",
+      "type": "",
+      "source": "appcast.io",
+      "url": "https://in.jooble.org/jdp/5995199810772247499",
+      "updated": "2026-09-08T19:53:40.1500000",
+      "snippet": "&nbsp;...Title  : Software Engineering <b>Intern </b>\r\n Location  : Bengaluru, India ( 5 days a week)\r\n Timings  : 2-9 pm  About Joveo  As the global...&nbsp;&nbsp;...products from whiteboard to working prototype. \r\n Ship across the <b>full stack,</b> React and Next.js on the front, Node.js and Express on the back...&nbsp;",
+      "search_query": "full stack developer intern",
+      "found_at": "2026-09-09T17:41:32.611270"
+    }
   }
 ]
