@@ -32,8 +32,8 @@ def main():
 
     crm = BASE / "Amaan_Internship_Ecosystem_v2.xlsx"
 
-    # 1. Discover jobs
-    run_step("1/5  JOB HUNTER", "job_hunter.py")
+    # 1. Discover jobs (multi-source)
+    run_step("1/5  JOB DISCOVERY", "discover.py")
 
     # 2. Remove irrelevant jobs
     run_step("2/5  JOB PRE-FILTER", "pipeline.py")

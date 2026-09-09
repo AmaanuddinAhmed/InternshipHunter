@@ -72,14 +72,20 @@ def is_relevant(job):
     title = clean_text(job.get("title"))
     snippet = clean_text(job.get("snippet"))
     job_type = clean_text(job.get("type"))
+    description = clean_text(job.get("description"))[:600]
 
-    combined = f"{title} {snippet} {job_type}"
+    # Full text is used for positive signals (target role + entry level).
+    combined = f"{title} {snippet} {job_type} {description}"
+
+    # Senior detection stays on the concise fields only, so a long JD that
+    # merely mentions "senior" in passing does not wrongly reject the job.
+    senior_scope = f"{title} {snippet} {job_type}"
 
     has_target_role = any(term in combined for term in TARGET_TERMS)
     has_entry_signal = any(term in combined for term in ENTRY_TERMS)
 
     # Obvious senior positions are removed before AI analysis.
-    is_senior = any(term in combined for term in SENIOR_TERMS)
+    is_senior = any(term in senior_scope for term in SENIOR_TERMS)
 
     if is_senior:
         return False
