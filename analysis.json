@@ -1,0 +1,93 @@
+{
+  "company": "SubSpace",
+  "role": "Software Development Intern",
+  "job_url": "",
+  "location": "Bangalore",
+  "work_mode": "Hybrid",
+  "job_type": "Internship",
+  "duration": "6 Months",
+  "stipend": {
+    "status": "disclosed",
+    "raw": "₹30,000 – ₹40,001/month",
+    "guaranteed_min_inr": 30000,
+    "guaranteed_max_inr": 40001,
+    "incentive_included": false
+  },
+  "eligibility": {
+    "status": "eligible",
+    "reasons": [
+      "Meets general qualification and skill criteria",
+      "Undergraduate degree requirement is a plus, not a hard blocker"
+    ]
+  },
+  "availability": {
+    "status": "unknown",
+    "reason": "Candidate availability dates not explicitly confirmed against immediate start."
+  },
+  "ppo": {
+    "status": "available",
+    "evidence": "On successful conversion to a permanent employee, the candidate can expect a salary of approximately ₹6 LPA to ₹11 LPA."
+  },
+  "required_skills": [
+    "Artificial Intelligence",
+    "Claude",
+    "Express.js",
+    "Golang",
+    "GraphQL",
+    "Hasura",
+    "JavaScript",
+    "Next.js",
+    "Node.js",
+    "Python",
+    "React",
+    "SQL",
+    "Tailwind CSS"
+  ],
+  "preferred_skills": [],
+  "demonstrated_matches": [
+    "JavaScript",
+    "Node.js",
+    "Express.js",
+    "React.js",
+    "Python",
+    "SQL/MySQL"
+  ],
+  "skill_gaps": [
+    "Golang",
+    "GraphQL",
+    "Hasura",
+    "Next.js",
+    "Tailwind CSS"
+  ],
+  "hard_blockers": [],
+  "red_flags": [],
+  "scores": {
+    "technical_fit": 24,
+    "experience_fit": 18,
+    "role_fit": 15,
+    "ppo_score": 15,
+    "compensation_fit": 10,
+    "opportunity_quality": 9,
+    "overall_score": 91
+  },
+  "recommendation": "APPLY ASAP",
+  "recommended_resume": "Full Stack / MERN focused resume",
+  "interview_topics": [
+    "Node.js and Express architecture",
+    "RESTful APIs and WebSockets",
+    "JavaScript asynchronous programming",
+    "Git and GitHub workflow",
+    "Problem-solving and AI-assisted development"
+  ],
+  "reasoning": {
+    "why_apply": [
+      "Stipend exceeds minimum target of ₹25,000/month",
+      "Strong tech stack overlap with Node.js, Express, React, and JavaScript",
+      "PPO/conversion opportunity clearly stated with a solid salary range",
+      "Hybrid work mode and good perks"
+    ],
+    "why_not": [
+      "Some secondary stack requirements like Golang and GraphQL are missing from direct candidate profile"
+    ]
+  }
+}

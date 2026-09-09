@@ -1,0 +1,100 @@
+Software Development Intern — SubSpace
+
+Location: Bangalore (Hybrid)
+Start Date: Immediately
+Duration: 6 Months
+Stipend: ₹30,000 – ₹40,001/month
+Number of openings: 2
+
+ABOUT THE INTERNSHIP
+
+Join a vibrant team where you'll gain hands-on experience building exciting web applications from the ground up. The team encourages initiative, continuous learning, and innovation. You'll have the chance to work on challenging projects, apply modern technologies, and directly impact the product.
+
+AI tools such as ChatGPT and Claude are encouraged to help accelerate development and problem-solving.
+
+RESPONSIBILITIES
+
+1. Develop innovative web applications using Node.js/Express, contributing to all phases of the development lifecycle.
+
+2. Integrate robust RESTful APIs to enhance application functionality and data exchange.
+
+3. Collaborate with the team to debug, troubleshoot, and optimize web applications, ensuring high performance and reliability.
+
+4. Implement engaging user interfaces using JavaScript, HTML5, and CSS3, and explore real-time communication using WebSockets.
+
+5. Use Git and GitHub to manage codebases and collaborate with the development team.
+
+6. Apply software design and architecture patterns to build scalable and maintainable solutions.
+
+7. Take initiative in problem-solving and work confidently under minimal supervision in a dynamic, deadline-driven environment.
+
+8. Explore and learn no-code development tools and bring innovative approaches to project delivery.
+
+9. Leverage AI tools such as Claude/ChatGPT to overcome technical blockers and accelerate problem-solving.
+
+SKILLS REQUIRED
+
+* Artificial Intelligence
+* Claude
+* Express.js
+* Golang
+* GraphQL
+* Hasura
+* JavaScript
+* Next.js
+* Node.js
+* Python
+* React
+* SQL
+* Tailwind CSS
+
+ADDITIONAL REQUIREMENTS
+
+1. Excellent programming skills in Go or Node.js.
+
+2. Strong debugging, problem-solving, and analytical skills.
+
+3. Working knowledge of RESTful API integration.
+
+4. Familiarity with Git and GitHub.
+
+5. Strong knowledge of JavaScript, Go, GraphQL, and WebSockets.
+
+6. Good understanding of software design and architecture patterns.
+
+7. Ability to work under minimal supervision and take initiative in problem-solving.
+
+8. Ability to work in a fast-paced and deadline-driven environment.
+
+9. An undergraduate degree in Computer Science or a related field is a plus.
+
+10. Openness to learning and exploring new technologies, including no-code development.
+
+ELIGIBILITY
+
+* Available for a full-time, in-office internship.
+* Able to start within the specified joining window.
+* Available for the full 6-month duration.
+* Relevant skills and interests.
+
+PERKS
+
+* Internship certificate
+* Letter of recommendation
+* Flexible work hours
+* Informal dress code
+* 5 days a week
+* Free snacks and beverages
+* Potential full-time job offer
+
+PPO / JOB OFFER
+
+On successful conversion to a permanent employee, the candidate can expect a salary of approximately ₹6 LPA to ₹11 LPA.
+
+ABOUT SUBSPACE
+
+SubSpace is a subscription marketplace that helps users identify subscriptions and stop paying for services they no longer need. The company focuses on improving users' financial health through subscription management.
+
+APPLICATION NOTE
+
+The role involves working with Node.js/Express, REST APIs, JavaScript, Git/GitHub, WebSockets, software architecture, and AI-assisted development.
