@@ -33,24 +33,46 @@ def main():
     crm = BASE / "Amaan_Internship_Ecosystem_v2.xlsx"
 
     # 1. Discover jobs (multi-source)
-    run_step("1/5  JOB DISCOVERY", "discover.py")
-
-    # 2. Remove irrelevant jobs
-    run_step("2/5  JOB PRE-FILTER", "pipeline.py")
-
-    # 3. Analyze only jobs that have not already been analyzed
-    run_step("3/5  GEMINI ANALYSIS", "batch_analyzer.py")
-
-    # 4. Sync AI results into the CRM
     run_step(
-        "4/5  CRM IMPORT",
-        "crm_importer.py",
-        ["--analysis", "analyses.json", "--crm", str(crm)]
+        "1/6  JOB DISCOVERY",
+        "discover.py"
     )
 
-    # 5. Refresh the morning dashboard
+    # 2. Remove irrelevant jobs
     run_step(
-        "5/5  MORNING DASHBOARD",
+        "2/6  JOB PRE-FILTER",
+        "pipeline.py"
+    )
+
+    # 3. Analyze only jobs that have not already been analyzed
+    run_step(
+        "3/6  GEMINI ANALYSIS",
+        "batch_analyzer.py"
+    )
+
+    # 4. Generate application kits for APPLY / APPLY ASAP jobs
+    run_step(
+        "4/6  AI APPLY-ASSIST",
+        "apply_assist.py"
+    )
+
+    # 5. Sync AI results into the CRM
+    run_step(
+        "5/6  CRM IMPORT",
+        "crm_importer.py",
+        [
+            "--analysis",
+            "analyses.json",
+            "--crm",
+            str(crm),
+            "--applications-dir",
+            "applications",
+        ]
+    )
+
+    # 6. Refresh the morning dashboard
+    run_step(
+        "6/6  MORNING DASHBOARD",
         "dashboard.py",
         ["--crm", str(crm)]
     )
@@ -69,9 +91,11 @@ Next action:
 2. Go to Morning Dashboard.
 3. Start with APPLY ASAP.
 4. Then review APPLY.
-5. Click the job title to open the posting.
-6. Apply manually.
-7. Record submitted applications in Applications.
+5. Open the generated application kit.
+6. Review the AI-generated material.
+7. Open the job posting.
+8. Apply manually.
+9. Record the submitted application in Applications.
 
 ===============================================
 """)

@@ -1,0 +1,93 @@
+{
+  "candidate": {
+    "name": "Amaan",
+    "degree": "MCA",
+    "university": "PES University",
+    "campus": "Ring Road Campus, Bengaluru",
+    "cgpa": 8.48
+  },
+
+  "target_roles": {
+    "primary": [
+      "Software Engineer Intern",
+      "Software Development Engineer Intern",
+      "Full Stack Developer Intern",
+      "Backend Developer Intern"
+    ],
+    "secondary": [
+      "MERN Stack Developer Intern",
+      "Node.js Developer Intern",
+      "Frontend Developer Intern",
+      "DevOps Intern",
+      "Cloud Intern"
+    ]
+  },
+
+  "preferences": {
+    "minimum_stipend_inr": 25000,
+    "ppo_priority": "high",
+    "preferred_work_locations": ["Bengaluru", "India"],
+    "remote": true,
+    "global_remote": true
+  },
+
+  "skills": {
+    "strong": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "HTML",
+      "CSS",
+      "Bootstrap",
+      "REST APIs",
+      "Authentication",
+      "Git",
+      "Azure"
+    ],
+    "working": ["Python", "Java", "AWS", "Docker", "Kubernetes", "CI/CD"],
+    "other": ["MERN Stack", "PHP", "SQL", "C#", "Figma", "Angular Material"]
+  },
+
+  "projects": [
+    {
+      "name": "StaySphere",
+      "type": "MERN Stack",
+      "description": "An Airbnb-style accommodation platform built using the MERN stack."
+    },
+    {
+      "name": "Zenvest",
+      "type": "Web Application",
+      "description": "A Zerodha-inspired trading platform project."
+    },
+    {
+      "name": "Mindora",
+      "type": "AI Web Application",
+      "description": "A ChatGPT-style application using OpenAI APIs."
+    },
+    {
+      "name": "Contexa",
+      "type": "MCA Capstone",
+      "description": "A context-aware people ecosystem focused on people, context, matching, compatibility prediction, recommendations and measurable outcomes."
+    }
+  ],
+
+  "application_strategy": {
+    "prioritize": [
+      "Strong technical alignment",
+      "Software engineering roles",
+      "Backend/full-stack opportunities",
+      "Meaningful engineering work",
+      "PPO or conversion opportunities",
+      "Paid internships"
+    ],
+    "avoid": [
+      "Roles primarily unrelated to software engineering",
+      "Senior-level positions",
+      "Roles with clear hard eligibility blockers"
+    ]
+  }
+}

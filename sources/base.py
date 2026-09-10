@@ -92,6 +92,16 @@ def get_json(url, *, params=None, headers=None, timeout=DEFAULT_TIMEOUT,
         params=params, headers=headers, timeout=timeout, retries=retries,
     ).json()
 
+def get_text(url, *, params=None, headers=None, timeout=DEFAULT_TIMEOUT,
+             retries=2):
+    """Fetch a public HTML/text page and return its response body."""
+    return _request(
+        "GET", url,
+        params=params,
+        headers=headers,
+        timeout=timeout,
+        retries=retries,
+    ).text
 
 def post_json(url, *, json=None, headers=None, timeout=DEFAULT_TIMEOUT,
               retries=2):

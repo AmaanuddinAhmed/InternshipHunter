@@ -1,0 +1,53 @@
+{
+  "job": {
+    "job_id": "jooble-41328e9efe02",
+    "title": "Full Stack Engineer /Tech Interns",
+    "company": "IONIC (Under Rebranding)",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "",
+    "source": "jooble",
+    "url": "https://in.jooble.org/away/6509585558078273655?p=1&pos=2&rgn=3193&cid=389&ckey=full+stack+developer+intern&jobAge=35&brelb=10&scr=1559.8843&bscr=1559.8843&aq=-4733170829206058009&elckey=953019572989986905"
+  },
+  "generated_at": "2026-09-10T09:00:42Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings during internship at Sunflower Trip.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across the platform.",
+      "Designed an admin dashboard for managing bookings, users, and travel packages, streamlining day-to-day operations for the internal team.",
+      "Delivered a full-featured Point of Sale (POS) system for a restaurant client as a freelancer, using Angular with a C# and MS SQL Server backend, and deployed on Azure."
+    ],
+    "cover_letter": "Dear Hiring Manager, I am writing to express my interest in the Full Stack Engineer / Tech Intern position at IONIC. As an MCA student at PES University with practical full-stack development experience, I am eager to contribute to designing, developing, and implementing both front-end and back-end systems. During my internship at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, which went live for real customer bookings. I also implemented role-based access control and designed administrative dashboards to streamline operations. Additionally, my freelance experience includes delivering a Point of Sale system for an Australian restaurant client using Angular, C#, and MS SQL Server, deployed live on Azure. My academic background in computer applications combined with hands-on MERN and full-stack project execution positions me well to take on the responsibilities of a tech intern and transition into a full-time opportunity over the 6-month duration. I look forward to the possibility of discussing how my technical background aligns with your engineering needs. Thank you for your time and consideration.",
+    "screening_answers": {
+      "why_this_company": "IONIC offers a paid tech internship ranging from INR 25K to 50K with a duration of 6 months and a clear path to a full-time opportunity, matching my career goals for a software engineering internship.",
+      "why_this_role": "The role requires designing, developing, and implementing both front-end and back-end systems, which directly aligns with my full-stack experience building production web applications using Angular, Node.js, Express, MySQL, C#, and MS SQL Server during my internships.",
+      "why_you": "I bring proven full-stack development experience from my internship at Sunflower Trip where I built and deployed a production-ready travel management system, as well as freelance experience delivering a live POS system on Azure using Angular and C#/MS SQL Server. I am currently pursuing an MCA at PES University with an 8.48 CGPA.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "INR 25,000 to 50,000 per month, aligning with the posted stipend range.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express, Angular, MySQL, MS SQL Server, C#, Azure, HTML, CSS, Git"
+    },
+    "skills_to_highlight": [
+      "Full Stack Development",
+      "Angular",
+      "Node.js",
+      "Express.js",
+      "MySQL",
+      "MS SQL Server",
+      "C#",
+      "Azure",
+      "REST APIs"
+    ],
+    "skill_gaps": [
+      "Specific proprietary framework details beyond standard full-stack web development as the JD is brief."
+    ],
+    "application_strategy": [
+      "Emphasize the production internship at Sunflower Trip and freelance POS project to prove end-to-end full-stack capabilities.",
+      "Highlight availability for a 6-month commitment with high interest in conversion to a full-time role.",
+      "Confirm relocation status to Bangalore since the role is on-site.",
+      "Target the INR 25K to 50K stipend range as indicated in the job posting."
+    ],
+    "confidence": "MEDIUM"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "job": {
+    "job_id": "jooble-2c93da9e0c09",
+    "title": "MERN Developer - Intern",
+    "company": "Nxtwave Disruptive Technologies Private Limited",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "Rs 3.5 - 4 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/7218822007534742956?ckey=MERN+intern&rgn=3193&pos=1&elckey=-8354470278249994869&p=1&aq=-6356034267964637025&cid=389&jobAge=181&brelb=10&bscr=2931.9358&scr=2931.9358"
+  },
+  "generated_at": "2026-09-10T09:00:50Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL during internship at Sunflower Trip, taken live for real customer bookings.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across production platforms.",
+      "Built a full-stack trading platform (Zenvest) across three services using the MERN stack, JWT authentication with httpOnly cookies, and Joi-based request validation.",
+      "Developed DriftGuard, a MERN-stack security control drift detection tool with end-to-end deployment using Vercel, Render, and MongoDB Atlas."
+    ],
+    "cover_letter": "I am writing to apply for the MERN Developer - Intern role at Nxtwave Disruptive Technologies Private Limited in Bangalore. As an MCA student at PES University with hands-on experience building full-stack applications using the MERN stack, I am eager to contribute to your engineering team through this 6-month internship and full-time opportunity.\n\nDuring my internship at Sunflower Trip as a Full Stack Developer Intern, I built a production-ready system using Node.js, Express, Angular, and MySQL, which was deployed live for real customer bookings. I also implemented role-based access control and secure authentication workflows to separate admin and user functionality.\n\nIn my personal and hackathon projects, such as Zenvest and DriftGuard, I utilized the MERN stack to build scalable web applications featuring JWT authentication, Joi-based request validation, and API integrations, deploying services independently across Vercel, Render, and MongoDB Atlas.\n\nThank you for considering my application. I look forward to discussing how my MERN stack experience aligns with your team's needs.",
+    "screening_answers": {
+      "why_this_company": "Nxtwave Disruptive Technologies Private Limited offers a MERN Developer internship in Bangalore with a 6-month duration and a conversion opportunity to a full-time role.",
+      "why_this_role": "This role directly aligns with my technical background in the MERN stack, including Node.js, Express, React, and MongoDB, which I have applied in both production internship work and full-stack projects.",
+      "why_you": "I bring practical MERN stack development experience from my internship at Sunflower Trip where I built live production systems, alongside projects like Zenvest and DriftGuard that utilize Express, Node.js, and MongoDB.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation, keeping in mind the posted stipend of 20,000/month.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express, React, MongoDB, MySQL, REST APIs, Git, Azure, AWS"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "MongoDB",
+      "REST APIs",
+      "Authentication",
+      "Git"
+    ],
+    "skill_gaps": [],
+    "application_strategy": [
+      "Emphasize full-stack MERN projects like Zenvest and production experience from Sunflower Trip.",
+      "Highlight experience with Node.js, Express, and MongoDB backend systems.",
+      "Mention familiarity with authentication, REST APIs, and deployment pipelines on cloud platforms.",
+      "Prepare to discuss the 6-month internship duration and full-time conversion opportunity."
+    ],
+    "confidence": "HIGH"
+  }
+}

@@ -18,8 +18,12 @@ from .remotive import RemotiveSource  # noqa: E402
 from .remoteok import RemoteOKSource  # noqa: E402
 from .arbeitnow import ArbeitnowSource  # noqa: E402
 from .themuse import TheMuseSource  # noqa: E402
-from .jobicy import JobicySource  # noqa: E402
-
+from .jobicy import JobicySource  # noqa: E402 
+from .hn_whoishiring import HNWhoIsHiringSource  # noqa: E402 
+from .internshala import InternshalaSource 
+from .unstop import UnstopSource
+from .wellfound import WellfoundSource 
+from .yc import YCSource
 
 # Every known adapter, in the order they should run.
 ALL_SOURCES = [
@@ -29,7 +33,12 @@ ALL_SOURCES = [
     RemoteOKSource(),
     ArbeitnowSource(),
     TheMuseSource(),
-    JobicySource(),
+    JobicySource(), 
+    HNWhoIsHiringSource(), 
+    InternshalaSource(), 
+    UnstopSource(),
+    WellfoundSource(), 
+    YCSource(),
 ]
 
 

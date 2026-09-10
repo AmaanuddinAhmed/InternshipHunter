@@ -95,7 +95,15 @@ def extract_retry_seconds(error):
 def analyze_one(client, job):
     """
     Analyze one job using the existing analyze_job.py configuration.
+
+    Prefer the full job description when available.
+    Fall back to the source snippet when the description is empty.
     """
+
+    description = (
+        str(job.get("description") or "").strip()
+        or str(job.get("snippet") or "").strip()
+    )
 
     jd = (
         f"Company: {job.get('company', '')}\n"
@@ -106,8 +114,8 @@ def analyze_one(client, job):
         f"Source: {job.get('source', '')}\n"
         f"URL: {job.get('url', '')}\n"
         f"Updated: {job.get('updated', '')}\n\n"
-        f"JOB DESCRIPTION / SNIPPET:\n"
-        f"{job.get('snippet', '')}"
+        f"JOB DESCRIPTION:\n"
+        f"{description}"
     )
 
     response = client.models.generate_content(

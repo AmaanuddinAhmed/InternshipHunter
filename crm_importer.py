@@ -38,6 +38,94 @@ def get_next_row(ws):
     return row + 1
 
 
+def find_application_kit(job_url, applications_dir):
+    """
+    Find an existing application kit by matching the job URL
+    stored inside application_kit.json.
+    """
+
+    applications_dir = Path(applications_dir)
+
+    if not applications_dir.exists():
+        return None
+
+    for kit_dir in applications_dir.iterdir():
+
+        if not kit_dir.is_dir():
+            continue
+
+        kit_file = kit_dir / "application_kit.json"
+
+        if not kit_file.exists():
+            continue
+
+        try:
+            kit = json.loads(
+                kit_file.read_text(
+                    encoding="utf-8"
+                )
+            )
+        except (OSError, json.JSONDecodeError):
+            continue
+
+        kit_job = kit.get("job") or {}
+
+        kit_url = (
+            kit_job.get("url")
+            or kit.get("job_url")
+            or ""
+        )
+
+        if str(kit_url).strip() == str(job_url).strip():
+            return kit_dir
+
+    return None
+
+
+def ensure_apply_assist_columns(ws):
+    """
+    Automatically add Apply-Assist columns if they do not already exist.
+
+    This makes the Excel CRM schema self-maintaining.
+    """
+
+    required_headers = [
+        "Application Kit Path",
+        "Application Kit Status",
+        "Cover Letter Status",
+        "Resume Bullets Status",
+        "Screening Answers Status",
+        "Apply Status",
+    ]
+
+    existing_headers = {
+        ws.cell(1, c).value
+        for c in range(1, ws.max_column + 1)
+        if ws.cell(1, c).value
+    }
+
+    next_column = ws.max_column + 1
+
+    added = []
+
+    for header in required_headers:
+
+        if header not in existing_headers:
+
+            ws.cell(
+                1,
+                next_column
+            ).value = header
+
+            existing_headers.add(header)
+
+            added.append(header)
+
+            next_column += 1
+
+    return added
+
+
 def main():
 
     ap = argparse.ArgumentParser()
@@ -50,6 +138,11 @@ def main():
     ap.add_argument(
         "--crm",
         required=True
+    )
+
+    ap.add_argument(
+        "--applications-dir",
+        default="applications"
     )
 
     args = ap.parse_args()
@@ -83,7 +176,31 @@ def main():
 
     wb = load_workbook(args.crm)
 
+    if "Jobs" not in wb.sheetnames:
+        raise ValueError(
+            "Could not find 'Jobs' sheet in CRM workbook."
+        )
+
     ws = wb["Jobs"]
+
+    # --------------------------------------------------
+    # ENSURE APPLY-ASSIST COLUMNS
+    # --------------------------------------------------
+
+    added_headers = ensure_apply_assist_columns(ws)
+
+    if added_headers:
+
+        print()
+        print("Apply-Assist CRM columns added:")
+
+        for header in added_headers:
+            print(f"  + {header}")
+
+    else:
+
+        print()
+        print("✓ Apply-Assist CRM columns already exist")
 
     # --------------------------------------------------
     # READ HEADERS
@@ -113,7 +230,9 @@ def main():
         value = ws.cell(row, url_col).value
 
         if value:
-            existing_by_url[str(value).strip()] = row
+            existing_by_url[
+                str(value).strip()
+            ] = row
 
     # --------------------------------------------------
     # PROCESS
@@ -122,6 +241,7 @@ def main():
     imported = 0
     updated = 0
     skipped = 0
+    kits_found = 0
 
     target = get_next_row(ws)
 
@@ -152,6 +272,26 @@ def main():
         overall_score = scores.get("overall_score")
 
         # --------------------------------------------------
+        # FIND APPLY-ASSIST KIT
+        # --------------------------------------------------
+
+        kit_dir = find_application_kit(
+            job_url,
+            args.applications_dir
+        )
+
+        kit_exists = bool(kit_dir)
+
+        if kit_exists:
+            kits_found += 1
+
+        kit_path = (
+            str(kit_dir.resolve())
+            if kit_dir
+            else ""
+        )
+
+        # --------------------------------------------------
         # DETERMINE ROW
         # --------------------------------------------------
 
@@ -171,7 +311,6 @@ def main():
 
             imported += 1
 
-            # Job ID
             job_id = (
                 f"{company[:12].upper().replace(' ', '-')}"
                 f"-{date.today():%y%m%d}"
@@ -179,6 +318,7 @@ def main():
             )
 
             if "Job ID" in headers:
+
                 ws.cell(
                     row_number,
                     headers["Job ID"]
@@ -235,8 +375,6 @@ def main():
                     )
                 ),
 
-            # IMPORTANT:
-            # Gemini overall_score -> existing CRM Match Score
             "Match Score":
                 overall_score,
 
@@ -275,7 +413,7 @@ def main():
 
             "Notes":
                 s(
-                    (reasoning.get("why_apply") or [])
+                    reasoning.get("why_apply") or []
                 ),
 
             "Eligibility Status":
@@ -322,6 +460,62 @@ def main():
         }
 
         # --------------------------------------------------
+        # APPLY-ASSIST VALUES
+        # --------------------------------------------------
+
+        values.update({
+
+            "Application Kit Path":
+                kit_path,
+
+            "Application Kit Status":
+                (
+                    "Ready for Review"
+                    if kit_exists
+                    else ""
+                ),
+
+            "Cover Letter Status":
+                (
+                    "Generated"
+                    if kit_exists
+                    else ""
+                ),
+
+            "Resume Bullets Status":
+                (
+                    "Generated"
+                    if kit_exists
+                    else ""
+                ),
+
+            "Screening Answers Status":
+                (
+                    "Generated"
+                    if kit_exists
+                    else ""
+                ),
+
+            "Apply Status":
+                (
+                    "Ready to Apply"
+                    if (
+                        kit_exists
+                        and s(
+                            item.get(
+                                "recommendation"
+                            )
+                        ).upper()
+                        in {
+                            "APPLY",
+                            "APPLY ASAP"
+                        }
+                    )
+                    else ""
+                ),
+        })
+
+        # --------------------------------------------------
         # WRITE VALUES
         # --------------------------------------------------
 
@@ -334,12 +528,18 @@ def main():
                     headers[header]
                 ).value = value
 
-        # Remember URL -> row
         existing_by_url[job_url] = row_number
+
+        kit_note = (
+            " | Kit: Ready"
+            if kit_exists
+            else ""
+        )
 
         print(
             f"{action}: {company} — {role}"
             f" | Score: {overall_score}"
+            f"{kit_note}"
         )
 
     # --------------------------------------------------
@@ -369,10 +569,11 @@ def main():
 
     print()
     print("===================================")
-    print(f"New jobs imported : {imported}")
-    print(f"Existing jobs updated : {updated}")
-    print(f"Skipped : {skipped}")
-    print(f"Analyses processed : {len(data)}")
+    print(f"New jobs imported      : {imported}")
+    print(f"Existing jobs updated  : {updated}")
+    print(f"Skipped                : {skipped}")
+    print(f"Analyses processed     : {len(data)}")
+    print(f"Application kits found : {kits_found}")
     print(f"Saved → {args.crm}")
     print("===================================")
 
