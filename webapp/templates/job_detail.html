@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}Job Detail — InternshipHunter{%
+endblock %} {% block content %}
+
+<a href="/" class="back-link">&larr; Back to dashboard</a>
+
+<section id="job-detail" data-job-key="{{ job_key }}">
+  <p class="muted">Loading…</p>
+</section>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{
+  "job": {
+    "job_id": "jooble-748a0cd5d1d0",
+    "title": "MERN Developer - Intern",
+    "company": "Nxtwave Disruptive Technologies Private Limited",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "Rs 3.5 - 4 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/7218822007534742956?ckey=MERN+intern&rgn=3193&pos=1&elckey=2146545731847288821&p=1&aq=3224658745161457083&cid=389&jobAge=228&brelb=10&bscr=2981.3176&scr=2981.3176"
+  },
+  "generated_at": "2026-09-12T08:06:01Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings during a full-stack internship at Sunflower Trip.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across the platform.",
+      "Built a full-stack trading platform across three services (marketing site, trading dashboard, and Express API) with JWT-based authentication using httpOnly cookies and per-user data scoping.",
+      "Developed DriftGuard, a MERN-stack tool with a teammate to flag real-time configuration and security drift and mapped detected changes to NIST and GDPR compliance controls."
+    ],
+    "cover_letter": "Dear Hiring Team, I am writing to apply for the MERN Developer Intern role at Nxtwave Disruptive Technologies Private Limited in Bangalore. As an MCA student at PES University with hands-on full-stack development experience, I am eager to contribute to your engineering team. During my internship as a Full Stack Developer at Sunflower Trip, I built a production-ready tours and travel management system using Node.js, Express, and MySQL, which went live for real customer bookings. I also implemented role-based access control and secure authentication to separate admin and user workflows. Furthermore, in my personal projects such as Zenvest, a stock trading platform clone, I built a full-stack application leveraging the MERN stack, Express APIs, and JWT-based authentication. I am comfortable working with the MERN stack and cloud deployments. Thank you for considering my application. I look forward to the possibility of discussing how my backend and full-stack experience aligns with your team's needs.",
+    "screening_answers": {
+      "why_this_company": "Nxtwave Disruptive Technologies Private Limited offers a MERN Developer Internship with a potential full-time opportunity based in Bangalore, which aligns directly with my career focus in full-stack software development and my goal of securing a conversion opportunity.",
+      "why_this_role": "This role focuses on MERN development, which matches my technical stack and project experience. I have built full-stack applications using Node.js, Express, React, and MongoDB, and I have professional internship experience building production-ready systems with Node.js and Express.",
+      "why_you": "I am an MCA student with hands-on full-stack experience across the MERN stack. During my internship at Sunflower Trip, I developed a production-ready system using Node.js, Express, and MySQL. I have also built complex projects like Zenvest, a MERN-stack trading platform with JWT authentication and server-side validation.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation, keeping in mind the posted stipend of 20,000/month.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "MongoDB, Express.js, React, Node.js, JavaScript, MySQL, Git, REST APIs, Authentication"
+    },
+    "skills_to_highlight": [
+      "MongoDB",
+      "Express.js",
+      "React",
+      "Node.js",
+      "JavaScript",
+      "MySQL",
+      "REST APIs",
+      "Authentication"
+    ],
+    "skill_gaps": [],
+    "application_strategy": [
+      "Emphasize full-stack MERN projects such as Zenvest and the professional production experience at Sunflower Trip.",
+      "Highlight backend and API development capabilities using Node.js and Express.",
+      "Be prepared to discuss authentication, database management, and deployment workflows used in past projects.",
+      "Note the Bangalore location requirement and confirm local availability or relocation willingness."
+    ],
+    "confidence": "HIGH"
+  }
+}

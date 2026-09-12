@@ -1,0 +1,54 @@
+{
+  "job": {
+    "job_id": "jooble-896c6d511dcd",
+    "title": "Software Engineer Intern",
+    "company": "Coinbase India Services",
+    "location": "work from home",
+    "remote": true,
+    "salary": "Rs 2.5 - 5 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/1797195671655267307?ckey=AI+engineer+intern&rgn=158289&pos=7&elckey=3755052727655221283&p=1&aq=-795774005874935407&cid=389&jobAge=1428&brelb=10&bscr=158.32991&scr=158.32991"
+  },
+  "generated_at": "2026-09-12T08:06:04Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings.",
+      "Delivered a full-featured Point of Sale system for a restaurant client using Angular, C#, and MS SQL Server, ensuring reliable transaction handling.",
+      "Built a full-stack trading platform across three services: marketing site, trading dashboard, and Express API, with JWT-based authentication and Joi request validation.",
+      "Built a full-stack property rental platform with complete listing CRUD, Cloudinary-backed image uploads, and Passport.js authentication."
+    ],
+    "cover_letter": "I am writing to express my interest in the Software Engineer Intern position at Coinbase India Services. As an MCA student at PES University with hands-on full-stack development experience, I am eager to apply my technical skills to build scalable software systems. During my internship at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, which was taken live for real customer bookings and featured role-based access control. Additionally, as a freelance full-stack developer, I delivered a POS system using Angular, C#, and MS SQL Server deployed on Azure, ensuring reliable daily transaction handling. In my personal projects, such as Zenvest, I built a multi-service trading platform utilizing an Express API, JWT authentication, and Joi-based request validation. I am enthusiastic about the opportunity to solve complex technical problems and contribute to your engineering team. Thank you for considering my application. I look forward to discussing how my backend and full-stack development experience aligns with your needs.",
+    "screening_answers": {
+      "why_this_company": "Coinbase is building the next generation of crypto-forward products and features, presenting unique, large-scale, and highly complex technical problems to solve.",
+      "why_this_role": "This role aligns directly with my background in backend and full-stack development, utilizing my experience with Node.js, Express, databases like MySQL and MongoDB, and building production-ready web applications.",
+      "why_you": "I bring hands-on full-stack engineering experience from my internship at Sunflower Trip where I built a live production system using Angular, Node.js, Express, and MySQL, alongside freelance experience delivering a digital POS system deployed on Azure. I also have strong foundational academic credentials as an MCA student at PES University with a CGPA of 8.48.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Rs 25,000 to Rs 41,666 per month (based on the provided annual stipend range of Rs 2.5 - 5 lakhs p.a.)",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express.js, React.js, Angular, MongoDB, MySQL, C#, REST APIs, Git, Azure, AWS"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "Angular",
+      "MySQL",
+      "MongoDB",
+      "REST APIs",
+      "Git",
+      "Azure",
+      "AWS"
+    ],
+    "skill_gaps": [
+      "Crypto-specific development or blockchain technology experience"
+    ],
+    "application_strategy": [
+      "Emphasize production internship experience at Sunflower Trip and live client delivery for the restaurant POS system.",
+      "Highlight backend systems, API design, and full-stack architecture using Node.js and Express.",
+      "Prepare to discuss how technical problem-solving and scalability concepts from projects like Zenvest apply to complex engineering environments.",
+      "Confirm exact availability and stipend expectations relative to the posted annual range."
+    ],
+    "confidence": "MEDIUM"
+  }
+}

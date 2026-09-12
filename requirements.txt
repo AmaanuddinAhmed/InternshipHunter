@@ -8,3 +8,5 @@ python-dotenv>=1.0
 # beautifulsoup4>=4.12
 # lxml>=5.0
 
+# Local web UI (webapp/app.py)
+flask>=3.0

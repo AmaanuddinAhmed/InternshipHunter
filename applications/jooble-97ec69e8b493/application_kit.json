@@ -1,0 +1,55 @@
+{
+  "job": {
+    "job_id": "jooble-97ec69e8b493",
+    "title": "Software Engineer Intern",
+    "company": "Coinbase India Services",
+    "location": "work from home",
+    "remote": true,
+    "salary": "Rs 2.5 - 5 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/1797195671655267307?ckey=SDE+intern&rgn=158289&pos=1&elckey=-6081853211982909476&p=1&aq=-6219767183060556059&cid=389&jobAge=1428&brelb=10&bscr=235.18568&scr=235.18568"
+  },
+  "generated_at": "2026-09-12T08:05:53Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings.",
+      "Delivered a full-featured Point of Sale (POS) system using Angular, C#, and MS SQL Server, ensuring reliable, low-latency transaction handling deployed on Azure.",
+      "Built Zenvest, a full-stack trading platform using the MERN stack across three independent services, implementing JWT-based authentication and a server-side API proxy with in-memory caching.",
+      "Developed DriftGuard as a MERN-stack security control drift detection tool flagged against compliance controls, deployed end-to-end within a hackathon timeline."
+    ],
+    "cover_letter": "Dear Hiring Team at Coinbase India Services, I am writing to express my interest in the Software Engineer Intern role at Coinbase India Services. As an MCA student at PES University with hands-on full-stack development experience, I am eager to contribute to building scalable web applications and technical products. Professionally, I worked as a Full Stack Developer Intern at Sunflower Trip, where I built and launched a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, featuring role-based access control and an administrative dashboard. Additionally, I delivered a Point of Sale system for a restaurant client using Angular, C#, and MS SQL Server, deployed on Azure. In my projects, I built Zenvest, a trading platform clone using the MERN stack featuring JWT authentication and server-side proxy caching, and DriftGuard, a real-time security control drift detection tool. My background aligns with developing robust backend systems and full-stack solutions. I look forward to the opportunity to discuss how my technical skills match your engineering internship requirements. Thank you for your time and consideration. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Coinbase is seeking software engineer interns to build the next generation of crypto-forward products and features while solving unique, large-scale, highly complex technical problems.",
+      "why_this_role": "The role focuses on solving complex technical problems and building production-ready features, which directly aligns with my experience developing full-stack applications like a POS system and a tours management platform using Node.js, Angular, Express, and databases such as MySQL and MS SQL Server.",
+      "why_you": "I bring hands-on full-stack development experience from my internship at Sunflower Trip where I built a production-ready system with Angular, Node.js, and MySQL, alongside freelance work deploying a POS system on Azure using C# and MS SQL Server. My project portfolio includes building full-stack web applications with authentication and third-party API integrations.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Rs 2.5 - 5 lakhs p.a.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express, React, Angular, MongoDB, MySQL, PostgreSQL, Azure, Git, AWS"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "REST APIs",
+      "Azure",
+      "Git"
+    ],
+    "skill_gaps": [
+      "Blockchain or cryptocurrency specific development experience",
+      "Distributed systems at massive scale"
+    ],
+    "application_strategy": [
+      "Emphasize full-stack development experience, specifically backend and API work using Node.js and Express.",
+      "Highlight production deployment experience on cloud platforms like Azure and Vercel/Render.",
+      "Mention the Zenvest trading platform clone to demonstrate familiarity with financial and trading data integration.",
+      "Prepare to discuss scalability and complex technical problem-solving during technical interviews."
+    ],
+    "confidence": "MEDIUM"
+  }
+}

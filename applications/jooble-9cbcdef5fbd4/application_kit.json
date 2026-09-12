@@ -1,0 +1,49 @@
+{
+  "job": {
+    "job_id": "jooble-9cbcdef5fbd4",
+    "title": "Software Developer - Intern",
+    "company": "Outbox.vc",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "Rs 30000 - Rs 35000 per month",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/5089802996613037634?ckey=software+development+intern&rgn=3193&pos=5&elckey=4247461709483168076&p=1&aq=5443400842657495333&cid=389&jobAge=5844&brelb=100&bscr=1583.9518&scr=1583.9518"
+  },
+  "generated_at": "2026-09-12T08:05:46Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL during internship at Sunflower Trip, taken live for real customer bookings.",
+      "Delivered a full-featured Point of Sale (POS) system using C# and MS SQL Server backend with an Angular frontend, deploying the solution on Azure.",
+      "Built Zenvest, a full-stack trading platform across an Express API and client services, implementing JWT-based authentication and Joi-based request validation.",
+      "Built DriftGuard, a MERN-stack security control drift detection tool mapped to NIST and GDPR compliance controls during a hackathon."
+    ],
+    "cover_letter": "Dear Hiring Team at Outbox.vc, I am writing to apply for the Software Developer - Intern position. As an MCA student at PES University with hands-on experience in full-stack development, I am eager to contribute to the development of your outbound marketing system. During my internship as a Full Stack Developer at Sunflower Trip, I built a production-ready tours and travel management system using Node.js, Express, and MySQL, implementing secure authentication and role-based access control. Additionally, my project experience includes building backend APIs and database-backed web applications using Node.js, Express, and MySQL, alongside version control with Git. I am enthusiastic about the opportunity to work with Node.js, TypeScript, Git, and MySQL to support your technical initiatives. Thank you for your time and consideration. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Outbox.vc offers the opportunity to work on cutting-edge technologies and contribute to the development of an innovative outbound marketing system.",
+      "why_this_role": "The role requires strong knowledge of NodeJS, TypeScript, Git, and MySQL, which directly aligns with my backend development experience using Node.js, Express, MySQL, and Git from my professional internship and projects.",
+      "why_you": "I have hands-on professional experience building production-ready systems using Node.js, Express, and MySQL during my Full Stack Developer Internship at Sunflower Trip, alongside strong foundational software engineering skills from my MCA program at PES University.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Rs 30000 - Rs 35000 per month",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "Node.js, Git, MySQL, JavaScript, Express"
+    },
+    "skills_to_highlight": [
+      "Node.js",
+      "MySQL",
+      "Git",
+      "Express.js",
+      "JavaScript"
+    ],
+    "skill_gaps": [
+      "TypeScript"
+    ],
+    "application_strategy": [
+      "Emphasize backend development experience using Node.js, Express, and MySQL from the Sunflower Trip internship.",
+      "Highlight Git usage across academic projects and professional work.",
+      "Prepare to discuss TypeScript as a skill gap, noting strong proficiency in JavaScript and readiness to adapt.",
+      "Address the Bangalore location requirement and confirm local availability."
+    ],
+    "confidence": "HIGH"
+  }
+}

@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block title %}InternshipHunter — Dashboard{%
+endblock %} {% block content %}
+
+<section class="summary-bar" id="summary-bar">
+  <div class="summary-card">
+    <span class="num" id="s-tracked">–</span><span class="label">Tracked</span>
+  </div>
+  <div class="summary-card">
+    <span class="num" id="s-queue">–</span
+    ><span class="label">Apply Queue</span>
+  </div>
+  <div class="summary-card highlight-asap">
+    <span class="num" id="s-asap">–</span><span class="label">Apply ASAP</span>
+  </div>
+  <div class="summary-card highlight-apply">
+    <span class="num" id="s-apply">–</span><span class="label">Apply</span>
+  </div>
+  <div class="summary-card">
+    <span class="num" id="s-kits">–</span><span class="label">Kits Ready</span>
+  </div>
+  <div class="summary-card">
+    <span class="num" id="s-applied">–</span><span class="label">Applied</span>
+  </div>
+</section>
+
+<section class="pipeline-panel">
+  <div class="pipeline-header">
+    <h2>Pipeline</h2>
+    <span class="muted" id="last-updated"></span>
+  </div>
+  <div class="pipeline-steps">
+    {% for step in steps %}
+    <button class="step-btn" data-step="{{ step.id }}">{{ step.label }}</button>
+    {% endfor %}
+    <button class="step-btn run-all" data-step="all">
+      ▶ Run All (Daily Pipeline)
+    </button>
+  </div>
+  <pre id="pipeline-log" class="pipeline-log hidden"></pre>
+</section>
+
+<section class="filters">
+  <div class="filter-group">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="APPLY ASAP">Apply ASAP</button>
+    <button class="filter-btn" data-filter="APPLY">Apply</button>
+    <button class="filter-btn" data-filter="CONSIDER">Consider</button>
+  </div>
+  <div class="filter-group">
+    <button class="filter-btn" data-applied="not_applied">Not Applied</button>
+    <button class="filter-btn" data-applied="applied">Applied</button>
+  </div>
+  <input type="text" id="search-box" placeholder="Search company or role..." />
+</section>
+
+<section id="job-list" class="job-list">
+  <p class="muted">Loading jobs…</p>
+</section>
+
+{% endblock %} {% block scripts %}
+<script>
+  window.STEP_IDS = JSON.parse(
+    '{{ steps | map(attribute="id") | list | tojson }}',
+  );
+</script>
+{% endblock %}
