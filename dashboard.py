@@ -19,10 +19,26 @@ APPLY_STATUSES = [
 
 
 def real_rows(ws):
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        if any(v not in (None, "") for v in row):
-            yield row
+    """
+    Yield each data row's values (min_row=2 onward) for rows that hold at
+    least one genuine value.
 
+    Some sheets (Applications, Interviews) are pre-formatted with a
+    formula in one column on every row — e.g. Applications' "Days Since
+    Applied" is =IF(G2="","",TODAY()-G2) on every row, even ones with no
+    application data yet. That formula cell always has a non-empty
+    .value (the formula string itself, when the workbook is loaded
+    without data_only), so a plain "any value present" check treats
+    every pre-formatted blank row as real. We only look at cells that
+    aren't themselves formulas when deciding whether a row counts.
+    """
+    for row in ws.iter_rows(min_row=2):
+        has_real_value = any(
+            cell.data_type != "f" and cell.value not in (None, "")
+            for cell in row
+        )
+        if has_real_value:
+            yield tuple(cell.value for cell in row)
 
 def build_dashboard(path):
 

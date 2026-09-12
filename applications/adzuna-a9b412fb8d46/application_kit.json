@@ -1,0 +1,50 @@
+{
+  "job": {
+    "job_id": "adzuna-a9b412fb8d46",
+    "title": "Software Engineer Intern",
+    "company": "Weekday",
+    "location": "Bangalore, Karnataka",
+    "remote": false,
+    "salary": "",
+    "source": "adzuna",
+    "url": "https://www.adzuna.in/details/5849688632?utm_medium=api&utm_source=5ccdc27f"
+  },
+  "generated_at": "2026-09-12T09:12:12Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings during internship at Sunflower Trip.",
+      "Delivered a full-featured Point of Sale (POS) system with an Angular frontend and a C# and MS SQL Server backend, deployed on Azure for a live restaurant client.",
+      "Developed Zenvest, a full-stack stock trading platform across three services with JWT authentication, Joi-based validation, and a server-side proxy integrating a third-party market data API.",
+      "Built StaySphere, a full-stack property rental platform using Node.js, Express, MongoDB, and Passport.js, featuring listing CRUD, Cloudinary uploads, and role-based authorization."
+    ],
+    "cover_letter": "Dear Hiring Manager,\n\nI am writing to express my interest in the Software Engineer Intern position at Weekday. As an MCA student at PES University with hands-on full-stack development experience, I am eager to contribute to your engineering team.\n\nDuring my professional experience as a Full Stack Developer Intern at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL that went live for real customer bookings. Additionally, I delivered a POS system for a restaurant client using Angular, C#, and MS SQL Server deployed on Azure.\n\nIn my academic and personal projects, such as Zenvest and StaySphere, I have built full-stack applications leveraging modern JavaScript technologies, REST APIs, and database management with MongoDB and MySQL. These projects allowed me to implement secure authentication, server-side request validation, and multi-service deployment.\n\nI am excited about the opportunity to work alongside experienced engineers, contribute to real projects, and further grow my technical skills in a fast-paced environment.\n\nThank you for considering my application. I look forward to the possibility of discussing how my background aligns with your needs.\n\nSincerely,\nAmaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "I am drawn to Weekday and its client opportunities because of the chance to work alongside experienced engineers on real projects in a fast-paced software development environment.",
+      "why_this_role": "This Software Engineer Intern role aligns directly with my background in full-stack development, utilizing technologies like JavaScript, Node.js, Express, Angular, MySQL, and MongoDB that I have used in both production internship settings and project work.",
+      "why_you": "I bring hands-on full-stack development experience from my internship at Sunflower Trip, where I built production systems using Angular, Node.js, and MySQL, alongside robust project experience building scalable applications like Zenvest and StaySphere.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "₹30,000/month, aligning with the posted stipend of ₹30,000 and meeting my minimum preference of ₹25,000/month.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express.js, Angular, React.js, MongoDB, MySQL, HTML, CSS, REST APIs, Git, Azure"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "REST APIs",
+      "Git"
+    ],
+    "skill_gaps": [],
+    "application_strategy": [
+      "Emphasize the production internship experience at Sunflower Trip and the live client freelance project.",
+      "Highlight full-stack capabilities across Angular, Node.js, and relational/non-relational databases.",
+      "Mention project work like Zenvest and StaySphere to demonstrate end-to-end application design and deployment.",
+      "Clarify work mode and location details regarding the Bengaluru location listed in the job description."
+    ],
+    "confidence": "HIGH"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "job": {
+    "job_id": "adzuna-ead5fd4e38d6",
+    "title": "Backend Developer",
+    "company": "Ylytic",
+    "location": "India",
+    "remote": false,
+    "salary": "",
+    "source": "adzuna",
+    "url": "https://www.adzuna.in/details/3148437412?utm_medium=api&utm_source=5ccdc27f"
+  },
+  "generated_at": "2026-09-12T09:12:23Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Node.js, Express, and MySQL during internship at Sunflower Trip, taken live for real customer bookings.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across the platform.",
+      "Designed an admin dashboard for managing bookings, users, and travel packages, streamlining day-to-day operations for the internal team."
+    ],
+    "cover_letter": "Dear Hiring Team, I am writing to express my interest in the Backend Development Intern position at Ylytic. As an MCA student at PES University with practical backend development experience, I am eager to help translate product specifications into a high-performing and scalable product. During my internship as a Full Stack Developer at Sunflower Trip, I built a production-ready management system using Node.js, Express, and MySQL that went live for real customer bookings. I also implemented role-based access control and secure authentication to separate admin and user workflows. Furthermore, in my Zenvest project, I developed an Express API with JWT-based authentication, Joi request validation, and an internal server-side proxy with in-memory caching to securely integrate third-party market data. My background in building structured backend services and deploying solutions across platforms aligns directly with your goal of scaling a product. I look forward to contributing to Ylytic's engineering objectives and growing into a backend development ownership role. Thank you for considering my application. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Ylytic is an early-stage analytics startup offering an opportunity to help translate product specifications into a high-performing and scalable product, providing rich learning into developing and scaling a product from scratch with a conversion path to a full-time position.",
+      "why_this_role": "The role requires building and scaling backend products from scratch to achieve product-market objectives, which directly matches my experience developing production-ready backend systems using Node.js, Express, MySQL, and REST APIs during my internship at Sunflower Trip and personal projects like Zenvest.",
+      "why_you": "I bring hands-on backend development experience from my internship at Sunflower Trip where I built and deployed live systems using Node.js, Express, and MySQL, alongside building robust APIs with authentication and request validation in projects like Zenvest and StaySphere.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "Node.js, Express, JavaScript, MySQL, MongoDB, REST APIs, Authentication, Git"
+    },
+    "skills_to_highlight": [
+      "Node.js",
+      "Express.js",
+      "JavaScript",
+      "MySQL",
+      "MongoDB",
+      "REST APIs",
+      "Authentication"
+    ],
+    "skill_gaps": [
+      "Specific analytics domain stack or proprietary technologies used by Ylytic"
+    ],
+    "application_strategy": [
+      "Emphasize backend development experience from the Sunflower Trip internship using Node.js, Express, and MySQL.",
+      "Highlight API design, authentication, and validation work from the Zenvest project.",
+      "Address the conversion-to-full-time aspect of the role, aligning with the candidate's high priority for PPO opportunities."
+    ],
+    "confidence": "HIGH"
+  }
+}

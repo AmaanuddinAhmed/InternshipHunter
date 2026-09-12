@@ -1,0 +1,56 @@
+{
+  "job": {
+    "job_id": "jooble-67ef2ef60030",
+    "title": "Software Engineer Intern",
+    "company": "Coinbase India Services",
+    "location": "work from home",
+    "remote": true,
+    "salary": "Rs 2.5 - 5 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/1797195671655267307?ckey=AI+engineer+intern&rgn=158289&pos=7&elckey=620659998068774080&p=1&aq=-152696816779156527&cid=389&jobAge=1429&brelb=10&bscr=158.30186&scr=158.30186"
+  },
+  "generated_at": "2026-09-12T09:12:09Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL during internship at Sunflower Trip, taken live for real customer bookings.",
+      "Delivered a full-featured Point of Sale system for an Australian restaurant client using Angular, C#, and MS SQL Server, deployed on Azure for live business operations.",
+      "Built Zenvest, a full-stack trading platform across three services with JWT authentication, Joi request validation, and an Express API proxy integrating a third-party market data API.",
+      "Built DriftGuard during a hackathon to flag real-time configuration and security drift, mapping changes to NIST and GDPR compliance controls using the MERN stack.",
+      "Built StaySphere, a property rental platform featuring CRUD operations, Cloudinary-backed image uploads, Passport.js authentication, and ownership-based authorization."
+    ],
+    "cover_letter": "Dear Hiring Team at Coinbase India Services, I am writing to apply for the Software Engineer Intern role. As an MCA student at PES University with a CGPA of 8.48 and hands-on full-stack development experience, I am eager to contribute to building reliable web systems. During my internship at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, which was deployed for real customer bookings and featured role-based access control. Additionally, I delivered a Point of Sale system for a freelance client using Angular, C#, and MS SQL Server deployed on Azure, ensuring reliable transaction handling in a live business setting. In my personal projects, such as Zenvest, I developed a multi-service trading platform with JWT authentication, custom request validation, and API proxy caching, and built StaySphere with secure Passport.js session authentication and Express middleware. I bring strong foundational skills in JavaScript, TypeScript, Node.js, Express, React, SQL, and MongoDB, alongside experience deploying applications on AWS, Azure, Vercel, and Render. Thank you for considering my application. I look forward to the opportunity to discuss how my technical background aligns with your engineering goals.",
+    "screening_answers": {
+      "why_this_company": "Coinbase is seeking software engineer interns to build the next generation of crypto-forward products and features and solve complex technical problems bridging web constraints.",
+      "why_this_role": "This Software Engineer Intern role aligns directly with my background in full-stack development, backend systems, and web application architecture, drawing on my hands-on experience building production systems like the tours and travel management platform at Sunflower Trip and multi-service web applications like Zenvest.",
+      "why_you": "I am an MCA student at PES University with a CGPA of 8.48, holding practical experience building and deploying production-ready and client applications using Node.js, Express, Angular, SQL, MongoDB, and cloud platforms like Azure. My projects demonstrate my ability to implement secure authentication, API integrations, and robust backend workflows.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "Node.js, Express, JavaScript, TypeScript, Angular, React, MongoDB, MySQL, MS SQL Server, C#, Azure, AWS, Git"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "REST APIs",
+      "Git",
+      "Azure"
+    ],
+    "skill_gaps": [
+      "Cryptocurrency/Web3 specific protocol experience"
+    ],
+    "application_strategy": [
+      "Emphasize full-stack production experience from the Sunflower Trip internship and the freelance restaurant POS project.",
+      "Highlight backend system design, API integrations, and security implementations demonstrated in the Zenvest and StaySphere projects.",
+      "Be prepared to discuss general software engineering principles, web application constraints, and backend architecture during technical screening.",
+      "Confirm exact availability and stipend expectations before finalizing the application submission."
+    ],
+    "confidence": "HIGH"
+  }
+}

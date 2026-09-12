@@ -1,0 +1,54 @@
+{
+  "job": {
+    "job_id": "jooble-171d6200bac6",
+    "title": "Software Engineer Intern",
+    "company": "Coinbase India Services",
+    "location": "work from home",
+    "remote": true,
+    "salary": "Rs 2.5 - 5 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/1797195671655267307?ckey=software+development+intern&rgn=158289&pos=1&elckey=2575656192662351854&p=1&aq=-4080213401787550463&cid=389&jobAge=1429&brelb=10&bscr=1032.6194&scr=1032.6194"
+  },
+  "generated_at": "2026-09-12T09:11:08Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across the platform.",
+      "Built a full-stack trading platform across three services: marketing site, trading dashboard, and Express API using JWT-based authentication and Joi request validation.",
+      "Delivered a full-featured Point of Sale (POS) system for a restaurant client using Angular, C#, and MS SQL Server, deploying the system on Azure."
+    ],
+    "cover_letter": "I am writing to apply for the Software Engineer Intern position at Coinbase India Services. As an MCA student at PES University with practical full-stack development experience, I am eager to contribute to building crypto-forward products and features. During my internship at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, implementing secure authentication and role-based access control. Additionally, I delivered a full-featured Point of Sale system for a restaurant client utilizing Angular, C#, MS SQL Server, and Azure deployment. In my personal projects, such as Zenvest, I developed a full-stack trading platform across multiple services, integrating JWT authentication, API request validation, and proxy-based third-party data fetching. My background in developing scalable web applications, RESTful APIs, and cloud-deployed systems aligns well with the technical challenges described in your posting. I look forward to the opportunity to bring my software engineering skills to your team.",
+    "screening_answers": {
+      "why_this_company": "Coinbase is seeking software engineer interns to build the next generation of crypto-forward products and features while solving unique, large-scale, and highly complex technical problems within web constraints.",
+      "why_this_role": "The Software Engineer Intern role matches my background in full-stack development, backend systems, and web application architecture, leveraging my experience with Node.js, Express, Angular, and cloud deployments.",
+      "why_you": "I bring hands-on full-stack development experience from my internship at Sunflower Trip where I built and deployed production-ready applications, along with robust project experience including Zenvest and StaySphere using Node.js, Express, and MongoDB.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation, keeping within the posted range of Rs 2.5 - 5 lakhs p.a.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express.js, React.js, Angular, MongoDB, MySQL, REST APIs, Git, Azure, AWS"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "REST APIs",
+      "Azure",
+      "AWS"
+    ],
+    "skill_gaps": [
+      "Direct production experience with cryptocurrency protocols and blockchain technologies"
+    ],
+    "application_strategy": [
+      "Emphasize full-stack development experience with Node.js, Express, and Angular from professional internships and projects.",
+      "Highlight backend system design, API development, and deployment experience on cloud platforms like Azure and AWS.",
+      "Prepare to discuss how complex technical problems and constraints were handled in previous projects like Zenvest and Sunflower Trip.",
+      "Address the remote work preference clearly since the job is listed as work from home."
+    ],
+    "confidence": "MEDIUM"
+  }
+}

@@ -1,19 +1,17 @@
 # Application Strategy
 
-- Emphasize hands-on Node.js and MongoDB experience from projects and professional internships.
-- Highlight full-stack and backend development capabilities using Express and MongoDB.
-- Address the location requirement (Delhi, India) and confirm relocation or on-site feasibility.
-- Prepare for technical discussion around real-world application building and backend architecture.
+- Emphasize backend development experience using Node.js and MongoDB from professional and project work.
+- Mention full-stack projects like Zenvest and StaySphere to demonstrate hands-on coding capabilities.
+- Address the Delhi location requirement by clarifying relocation preferences directly with the employer.
 
 # Skills to Highlight
 
 - Node.js
 - MongoDB
-- Express.js
+- Express
 - JavaScript
 - REST APIs
-- Authentication
 
 # Skill Gaps
 
-- Direct professional experience in video and image technology SaaS domains
+- Specific core video and image tech experience mentioned in the job description

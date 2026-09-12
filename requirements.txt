@@ -9,4 +9,7 @@ python-dotenv>=1.0
 # lxml>=5.0
 
 # Local web UI (webapp/app.py)
-flask>=3.0
+flask>=3.0 
+
+# Resume extraction for setup_profile.py
+pypdf>=4.0

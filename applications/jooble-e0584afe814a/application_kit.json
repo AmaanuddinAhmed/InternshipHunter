@@ -1,0 +1,49 @@
+{
+  "job": {
+    "job_id": "jooble-e0584afe814a",
+    "title": "MERN Developer - Intern",
+    "company": "Nxtwave Disruptive Technologies Private Limited",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "Rs 3.5 - 4 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/7218822007534742956?ckey=Node.js+intern&rgn=3193&pos=2&elckey=8297031273089829483&p=1&aq=-2324189919506338114&cid=389&jobAge=229&brelb=10&bscr=2019.2196&scr=2019.2196"
+  },
+  "generated_at": "2026-09-12T09:11:16Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings.",
+      "Built a full-stack trading platform across three services: marketing site, trading dashboard, and Express API with JWT-based authentication using httpOnly cookies.",
+      "Built a MERN-stack security control drift detection tool for a hackathon, mapping detected changes to NIST and GDPR compliance controls.",
+      "Built a full-stack property rental platform (StaySphere) with complete listing CRUD, Cloudinary-backed image uploads, and a review/rating system."
+    ],
+    "cover_letter": "Dear Hiring Team, I am writing to apply for the MERN Developer - Intern role at Nxtwave Disruptive Technologies Private Limited in Bangalore. As an MCA student at PES University with practical full-stack experience, I bring hands-on knowledge of building scalable web applications using the MERN stack. During my professional experience as a Full Stack Developer Intern at Sunflower Trip, I built a production-ready tours and travel management system using Node.js, Express, and MySQL, which was taken live for real customer bookings. Additionally, I implemented role-based access control and designed an admin dashboard. In my project work, I developed Zenvest, a stock trading platform clone, utilizing Node.js, Express, MongoDB, and React-related concepts, implementing JWT authentication and Joi-based request validation. I also built StaySphere, an Airbnb-style property listing platform using Node.js, Express, and MongoDB. My background aligns well with the requirements for hands-on knowledge in JavaScript, React.js, Node.js, and SQL/MongoDB. I am eager to contribute my technical skills to your engineering team through this internship opportunity. Thank you for your time and consideration. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Nxtwave Disruptive Technologies Private Limited offers a MERN Developer Intern role based in Bangalore with an internship-to-full-time structure, which aligns with my career goals in software development.",
+      "why_this_role": "This role matches my technical background in JavaScript, React.js, Node.js, and MongoDB/SQL databases, as demonstrated through my full-stack projects like Zenvest and StaySphere as well as my production internship experience.",
+      "why_you": "I bring hands-on full-stack development experience from my internship at Sunflower Trip where I built production systems using Node.js, Express, and MySQL, alongside comprehensive personal projects built with React, Node.js, Express, and MongoDB.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Rs 3.5 - 4 lakhs p.a.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, React.js, Node.js, Express.js, MongoDB, SQL, Python"
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "SQL",
+      "Python"
+    ],
+    "skill_gaps": [],
+    "application_strategy": [
+      "Emphasize full-stack MERN projects like Zenvest and StaySphere during application review.",
+      "Highlight production experience with Node.js and SQL/MongoDB from the Sunflower Trip internship.",
+      "Address the Python requirement by noting working proficiency in Python alongside primary JavaScript expertise.",
+      "Confirm details regarding the Bangalore location and the internship-to-full-time conversion structure."
+    ],
+    "confidence": "HIGH"
+  }
+}

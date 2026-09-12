@@ -1,0 +1,48 @@
+{
+  "job": {
+    "job_id": "adzuna-1a3d981d7303",
+    "title": "Backend Developer (Python Intern)",
+    "company": "shiryam",
+    "location": "India",
+    "remote": false,
+    "salary": "",
+    "source": "adzuna",
+    "url": "https://www.adzuna.in/details/3447826016?utm_medium=api&utm_source=5ccdc27f"
+  },
+  "generated_at": "2026-09-12T09:12:19Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Developed production-ready tours and travel management systems using Node.js, Express, and MySQL, ensuring robust backend logic and data interchange.",
+      "Built full-stack web applications including Zenvest and StaySphere utilizing Node.js, Express, and MongoDB, implementing secure authentication and server-side request validation.",
+      "Engineered security control drift detection tools and RESTful services during hackathons and academic projects using the MERN stack."
+    ],
+    "cover_letter": "Dear Hiring Manager, I am writing to apply for the Backend Developer (Python Intern) role at shiryam. As an MCA student at PES University with hands-on full-stack development experience, I am eager to contribute to your server-side logic and data interchange development. During my professional experience as a Full Stack Developer Intern at Sunflower Trip, I built production-ready systems using Node.js, Express, and MySQL, implementing role-based access control and secure authentication workflows. In addition, my project work includes developing robust backend services, RESTful APIs, and managing server-side request validation using Joi schemas in applications like Zenvest and StaySphere. While my primary development background is in JavaScript and Node.js, I also have working experience with Python and am enthusiastic about applying my software engineering fundamentals to backend development in Python. I am glad to see that the role offers remote work options and conversion opportunities to full-time. Thank you for considering my application. I look forward to the possibility of discussing how my backend experience aligns with your team's needs. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Shiryam offers an opportunity to work in a Slack and Asana-focused environment with competitive stipends, remote work options, certificate and letter of recommendation support, and opportunities to convert to a full-time role.",
+      "why_this_role": "The role focuses on developing server-side logic and managing data interchange between servers and users, which directly aligns with my backend and full-stack project experience building APIs, server-side validation, and database architectures.",
+      "why_you": "I bring hands-on full-stack development experience from my internship at Sunflower Trip and freelance work, alongside robust backend project experience including Zenvest, StaySphere, and DriftGuard, where I implemented secure authentication, request validation, and database integration.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "Open to discussion based on the company's internship compensation.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express.js, MongoDB, MySQL, Python (working experience)"
+    },
+    "skills_to_highlight": [
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "MySQL",
+      "Python",
+      "REST APIs"
+    ],
+    "skill_gaps": [
+      "Extensive production experience specifically in Python web frameworks like Django or Flask"
+    ],
+    "application_strategy": [
+      "Emphasize backend development experience, API design, and server-side logic handling from previous projects and internships.",
+      "Acknowledge Python as a working skill and highlight strong foundational programming abilities in Java, JavaScript, and Python.",
+      "Mention remote work preferences and openness to full-time conversion opportunities as highlighted in the job description."
+    ],
+    "confidence": "MEDIUM"
+  }
+}

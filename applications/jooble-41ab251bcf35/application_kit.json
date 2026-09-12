@@ -1,0 +1,51 @@
+{
+  "job": {
+    "job_id": "jooble-41ab251bcf35",
+    "title": "MERN Developer - Intern",
+    "company": "Nxtwave Disruptive Technologies Private Limited",
+    "location": "Bangalore",
+    "remote": false,
+    "salary": "Rs 3.5 - 4 lakhs p.a.",
+    "source": "jooble",
+    "url": "https://in.jooble.org/desc/7218822007534742956?ckey=software+development+intern&rgn=3193&pos=8&elckey=1113068979896720873&p=1&aq=-1835080659113362399&cid=389&jobAge=229&brelb=10&bscr=1497.171&scr=1497.171"
+  },
+  "generated_at": "2026-09-12T09:11:04Z",
+  "status": "READY_FOR_REVIEW",
+  "kit": {
+    "tailored_resume_bullets": [
+      "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL during internship at Sunflower Trip, taken live for real customer bookings.",
+      "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across production applications.",
+      "Built a full-stack trading platform across three services (marketing site, trading dashboard, and Express API) featuring JWT-based authentication and Joi-based request validation.",
+      "Developed DriftGuard, a MERN-stack security control drift detection tool mapping changes to NIST and GDPR compliance controls within a hackathon timeline.",
+      "Built StaySphere, a full-stack property rental platform using Node.js, Express, MongoDB, and Passport.js authentication with session-based login and ownership-based authorization."
+    ],
+    "cover_letter": "Dear Hiring Manager, I am writing to express my interest in the MERN Developer - Intern role at Nxtwave Disruptive Technologies. As an MCA student at PES University with hands-on production and project experience across the MERN stack, I am eager to contribute to your engineering team. During my Full Stack Developer Internship at Sunflower Trip, I built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, which went live for real customer bookings. I implemented role-based access control and managed admin workflows to streamline operations. Additionally, my personal projects include Zenvest, a full-stack trading platform built with the MERN stack featuring JWT-based authentication, Joi validation, and services deployed across Vercel, Render, and MongoDB Atlas. I also developed StaySphere using Node.js, Express, MongoDB, and Passport.js with complete CRUD functionality and secure authorization. These experiences have given me practical proficiency in building scalable backend systems, REST APIs, and responsive frontends using the MERN stack. I look forward to the possibility of discussing how my technical background aligns with your internship and full-time conversion opportunities. Thank you for your time and consideration. Sincerely, Amaanuddin Ahmed",
+    "screening_answers": {
+      "why_this_company": "Nxtwave Disruptive Technologies offers a MERN Developer internship in Bangalore with a structured 6-month duration and a clear pathway to a full-time opportunity.",
+      "why_this_role": "The MERN Developer Intern role directly aligns with my stack and hands-on project experience in building full-stack applications using MongoDB, Express.js, React/Angular, and Node.js, such as my work on Zenvest and StaySphere.",
+      "why_you": "I bring practical full-stack development experience from my internship at Sunflower Trip where I built production-ready systems using Node.js, Express, and MySQL, alongside robust personal projects like Zenvest and StaySphere built on the MERN stack.",
+      "availability": "Availability should be confirmed with the candidate.",
+      "expected_stipend": "20,000/month as specified in the job description.",
+      "relocation": "Relocation preference should be confirmed with the candidate.",
+      "relevant_technology_experience": "JavaScript, Node.js, Express.js, React.js, Angular, MongoDB, MySQL, REST APIs, Git, and Azure."
+    },
+    "skills_to_highlight": [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Angular",
+      "MongoDB",
+      "MySQL",
+      "REST APIs"
+    ],
+    "skill_gaps": [],
+    "application_strategy": [
+      "Emphasize full-stack MERN projects like Zenvest and StaySphere in your application materials.",
+      "Highlight your professional experience building live production systems during your Sunflower Trip internship.",
+      "Mention your familiarity with backend systems, REST APIs, and database management using MongoDB and MySQL.",
+      "Be prepared to discuss the 6-month internship duration and the transition to full-time employment."
+    ],
+    "confidence": "HIGH"
+  }
+}
