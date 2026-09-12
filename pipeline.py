@@ -30,11 +30,12 @@ TARGET_TERMS = [
 ]
 
 
-# Terms that usually indicate the role is not suitable
+# Terms that usually indicate the role is not suitable.
+# Matched as whole words (see is_relevant) so e.g. "lead" doesn't reject a
+# "Lead Generation Intern" posting, and "sr" doesn't match inside "user".
 SENIOR_TERMS = [
     "senior",
-    "sr.",
-    "sr ",
+    "sr",
     "lead",
     "principal",
     "manager",
@@ -68,6 +69,17 @@ def clean_text(value):
     return re.sub(r"\s+", " ", str(value)).strip().lower()
 
 
+def _contains_word(text, term):
+    """
+    Whole-word / whole-phrase containment. Prevents "lead" from matching
+    "Lead Generation Intern" or "sr" from matching inside another word,
+    while still allowing multi-word phrases like "3+ years" to match as-is.
+    """
+    if " " in term or "+" in term:
+        return term in text
+    return re.search(rf"\b{re.escape(term)}\b", text) is not None
+
+
 def is_relevant(job):
     title = clean_text(job.get("title"))
     snippet = clean_text(job.get("snippet"))
@@ -77,15 +89,17 @@ def is_relevant(job):
     # Full text is used for positive signals (target role + entry level).
     combined = f"{title} {snippet} {job_type} {description}"
 
-    # Senior detection stays on the concise fields only, so a long JD that
-    # merely mentions "senior" in passing does not wrongly reject the job.
-    senior_scope = f"{title} {snippet} {job_type}"
+    # Senior detection stays on the title + job type only. Snippets and
+    # JDs routinely mention "senior" or "lead" in passing (e.g. "reports
+    # to a senior engineer", "lead generation") without the posting
+    # itself being a senior role, so they're excluded from this check.
+    senior_scope = f"{title} {job_type}"
 
     has_target_role = any(term in combined for term in TARGET_TERMS)
     has_entry_signal = any(term in combined for term in ENTRY_TERMS)
 
     # Obvious senior positions are removed before AI analysis.
-    is_senior = any(term in senior_scope for term in SENIOR_TERMS)
+    is_senior = any(_contains_word(senior_scope, term) for term in SENIOR_TERMS)
 
     if is_senior:
         return False
