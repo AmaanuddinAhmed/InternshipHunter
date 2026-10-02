@@ -58,6 +58,11 @@ APPLICATIONS_HEADERS = [
 ]
 
 
+# Apply Status values that mean "not applied yet". Anything else
+# (Applied, Rejected, Withdrawn, ...) means an application went out.
+NOT_APPLIED_STATUSES = {"", "ready to apply", "not applied"}
+
+
 class JobNotFoundError(Exception):
     pass
 
@@ -195,7 +200,7 @@ def _row_to_job(headers, row_cells, applications_dir):
         "kit_folder": kit_folder if kit_exists else None,
         "kit_status": _safe_str(get("kit_status")),
         "apply_status": apply_status,
-        "applied": apply_status.lower() not in ("", "ready to apply"),
+        "applied": apply_status.lower() not in NOT_APPLIED_STATUSES,
     }
 
 
@@ -318,6 +323,13 @@ def set_apply_status(crm_path, job_key, applied):
             stipend=_safe_str(row_data[stipend_col - 1].value),
             ppo=_safe_str(row_data[ppo_col - 1].value),
         )
+    else:
+        # Un-marking must also remove the Applications row, otherwise the
+        # Morning Dashboard keeps counting the job as applied.
+        _clear_application_rows(
+            wb,
+            job_id=_safe_str(row_data[id_col - 1].value),
+        )
 
     try:
         wb.save(crm_path)
@@ -329,6 +341,27 @@ def set_apply_status(crm_path, job_key, applied):
         "apply_status": new_status,
         "applied": applied,
     }
+
+
+def _clear_application_rows(wb, *, job_id):
+    """Blank the data cells of every Applications row for this Job ID."""
+    if not job_id or APPLICATIONS_SHEET not in wb.sheetnames:
+        return
+
+    ws = wb[APPLICATIONS_SHEET]
+    headers = _header_index(ws)
+    job_id_col = headers.get("Job ID")
+
+    if not job_id_col:
+        return
+
+    for row in ws.iter_rows(min_row=2):
+        if _safe_str(row[job_id_col - 1].value) != job_id:
+            continue
+        for cell in row:
+            # Keep pre-formatted formula cells (e.g. Days Since Applied).
+            if cell.data_type != "f":
+                cell.value = None
 
 
 def _append_application_row(wb, *, job_id, company, role, url, resume, stipend, ppo):

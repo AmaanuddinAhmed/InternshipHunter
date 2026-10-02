@@ -371,9 +371,12 @@ def main():
             "JD Text":
                 s(
                     (item.get("_job") or {}).get(
+                        "description"
+                    )
+                    or (item.get("_job") or {}).get(
                         "snippet"
                     )
-                ),
+                )[:5000],
 
             "Match Score":
                 overall_score,
@@ -514,6 +517,32 @@ def main():
                     else ""
                 ),
         })
+
+
+        # --------------------------------------------------
+        # PRESERVE WHAT THE DAILY IMPORT MUST NOT OVERWRITE
+        # --------------------------------------------------
+        if action == "Updated":
+            # The day the job was first found stays the day it was found.
+            values.pop("Date Found", None)
+
+            # An Apply Status the user has moved on (Applied, Rejected,
+            # Withdrawn, ...) is theirs; only blank / "Ready to Apply"
+            # is managed by the importer.
+            if "Apply Status" in headers:
+                current_status = str(
+                    ws.cell(
+                        row_number,
+                        headers["Apply Status"]
+                    ).value
+                    or ""
+                ).strip()
+
+                if current_status.lower() not in {
+                    "",
+                    "ready to apply",
+                }:
+                    values.pop("Apply Status", None)
 
         # --------------------------------------------------
         # WRITE VALUES

@@ -20,13 +20,22 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+
 from flask import Flask, jsonify, render_template, request
+from werkzeug.utils import secure_filename
 
 import excel_data
 
 BASE = Path(__file__).resolve().parent.parent  # project root, one level up
 CRM_PATH = BASE / "Amaan_Internship_Ecosystem_v2.xlsx"
 APPLICATIONS_DIR = BASE / "applications" 
+MANUAL_JOBS_DIR = BASE / "manual_jobs"
+RESUME_UPLOAD_DIR = BASE / "profile" / "uploads"
+RESUME_EXTENSIONS = {".pdf", ".docx", ".md", ".txt"}
+
+# career_brain.py / jd_enricher.py live in the project root.
+if str(BASE) not in sys.path:
+    sys.path.insert(0, str(BASE))
 # The pipeline scripts print Unicode characters (→, ✓, ✗, —) for readable
 # console output. On Windows, a subprocess whose stdout is piped (as it is
 # here, not a real terminal) falls back to the system code page (often
@@ -35,7 +44,9 @@ APPLICATIONS_DIR = BASE / "applications"
 # fixes this without touching any of the pipeline scripts themselves.
 SUBPROCESS_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 
+
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # resume uploads: 5 MB
 
 # ----------------------------------------------------------------------
 # Pipeline step registry — mirrors daily.py exactly, so "Run All" here
@@ -93,58 +104,103 @@ RUNS = {}
 RUNS_LOCK = threading.Lock()
 
 
-def _stream_run(run_id, script, args):
-    cmd = [sys.executable, str(BASE / script), *args]
 
+
+def _run_chain(run_id, steps):
+    """
+    Run one or more scripts in order inside a single run, streaming their
+    output into RUNS[run_id]["lines"] and stopping at the first failure —
+    the same semantics as daily.py.
+    """
     with RUNS_LOCK:
         RUNS[run_id]["status"] = "running"
 
-    try:
-        proc = subprocess.Popen(
-            cmd,
-            cwd=BASE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1,
-            encoding="utf-8",
-            errors="replace",
-            env=SUBPROCESS_ENV,
-        )
+    show_headings = len(steps) > 1
 
-        for line in proc.stdout:
+    for step in steps:
+        if show_headings:
             with RUNS_LOCK:
-                RUNS[run_id]["lines"].append(line.rstrip("\n"))
+                RUNS[run_id]["lines"].append(f"\n=== {step['label']} ===")
 
-        proc.wait()
+        cmd = [sys.executable, str(BASE / step["script"]), *step["args"]]
 
-        with RUNS_LOCK:
-            RUNS[run_id]["returncode"] = proc.returncode
-            RUNS[run_id]["status"] = (
-                "done" if proc.returncode == 0 else "failed"
+        try:
+            proc = subprocess.Popen(
+                cmd,
+                cwd=BASE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                bufsize=1,
+                encoding="utf-8",
+                errors="replace",
+                env=SUBPROCESS_ENV,
+            )
+            for line in proc.stdout:
+                with RUNS_LOCK:
+                    RUNS[run_id]["lines"].append(line.rstrip("\n"))
+            proc.wait()
+        except Exception as error:  # noqa: BLE001
+            with RUNS_LOCK:
+                RUNS[run_id]["lines"].append(f"[!] Failed to start: {error}")
+                RUNS[run_id]["status"] = "failed"
+                RUNS[run_id]["returncode"] = -1
+            return
+
+        if proc.returncode != 0:
+            with RUNS_LOCK:
+                if show_headings:
+                    RUNS[run_id]["lines"].append(
+                        f"\n[!] {step['label']} failed "
+                        f"(exit {proc.returncode}). Stopping."
+                    )
+                RUNS[run_id]["status"] = "failed"
+                RUNS[run_id]["returncode"] = proc.returncode
+            return
+
+    with RUNS_LOCK:
+        if show_headings:
+            RUNS[run_id]["lines"].append("\n=== Complete ===")
+        RUNS[run_id]["status"] = "done"
+        RUNS[run_id]["returncode"] = 0
+
+
+def _start_chain(steps, step_id=None):
+    """
+    Start a run in the background. Returns (run_id, None), or
+    (None, message) if another run is still going — every script writes
+    the same workbook and JSON files, so only one may run at a time.
+    """
+    with RUNS_LOCK:
+        if any(r["status"] in ("starting", "running") for r in RUNS.values()):
+            return None, (
+                "Another run is still in progress. Wait for it to finish."
             )
 
-    except Exception as error:  # noqa: BLE001
-        with RUNS_LOCK:
-            RUNS[run_id]["lines"].append(f"[!] Failed to start: {error}")
-            RUNS[run_id]["status"] = "failed"
-            RUNS[run_id]["returncode"] = -1
+        run_id = uuid.uuid4().hex[:12]
+        RUNS[run_id] = {
+            "status": "starting",
+            "lines": [],
+            "returncode": None,
+            "step_id": step_id,
+            "started_at": datetime.now().isoformat(),
+        }
 
-
-def _start_run(script, args, step_id=None):
-    run_id = uuid.uuid4().hex[:12]
-    RUNS[run_id] = {
-        "status": "starting",
-        "lines": [],
-        "returncode": None,
-        "step_id": step_id,
-        "started_at": datetime.now().isoformat(),
-    }
     thread = threading.Thread(
-        target=_stream_run, args=(run_id, script, args), daemon=True
+        target=_run_chain, args=(run_id, steps), daemon=True
     )
     thread.start()
-    return run_id
+    return run_id, None
+
+
+def _started(run_id, error):
+    if error:
+        return jsonify({"error": error}), 409
+    return jsonify({"run_id": run_id})
+
+
+# Steps that push fresh analysis/kit data into the workbook.
+SYNC_STEPS = [STEP_BY_ID["crm_import"], STEP_BY_ID["dashboard"]]
 
 
 # ----------------------------------------------------------------------
@@ -238,77 +294,114 @@ def api_mark_applied(job_key):
 @app.route("/api/run/<step_id>", methods=["POST"])
 def api_run_step(step_id):
     if step_id == "all":
-        # Chain all six steps sequentially in one run, stopping on failure —
-        # same semantics as daily.py.
-        run_id = uuid.uuid4().hex[:12]
-        RUNS[run_id] = {
-            "status": "starting",
-            "lines": [],
-            "returncode": None,
-            "step_id": "all",
-            "started_at": datetime.now().isoformat(),
-        }
-        thread = threading.Thread(
-            target=_run_all_steps, args=(run_id,), daemon=True
-        )
-        thread.start()
-        return jsonify({"run_id": run_id})
+        # All six steps in one run, stopping on failure — same as daily.py.
+        return _started(*_start_chain(STEPS, step_id="all"))
 
     step = STEP_BY_ID.get(step_id)
     if step is None:
         return jsonify({"error": f"Unknown step: {step_id}"}), 404
 
-    run_id = _start_run(step["script"], step["args"], step_id=step_id)
-    return jsonify({"run_id": run_id})
+    return _started(*_start_chain([step], step_id=step_id))
 
 
-def _run_all_steps(run_id):
-    with RUNS_LOCK:
-        RUNS[run_id]["status"] = "running"
+# ----------------------------------------------------------------------
+# On-demand kit for one job (any recommendation)
+# ----------------------------------------------------------------------
+@app.route("/api/job/<path:job_key>/generate_kit", methods=["POST"])
+def api_generate_kit(job_key):
+    job = excel_data.read_job_by_key(
+        CRM_PATH, job_key, applications_dir=APPLICATIONS_DIR
+    )
+    if job is None:
+        return jsonify({"error": "Job not found"}), 404
+    if not job.get("url"):
+        return jsonify({"error": "This job has no URL to look it up by."}), 400
 
-    for step in STEPS:
-        with RUNS_LOCK:
-            RUNS[run_id]["lines"].append(f"\n=== {step['label']} ===")
+    args = ["--url", job["url"]]
+    if (request.get_json(silent=True) or {}).get("force"):
+        args.append("--force")
 
-        cmd = [sys.executable, str(BASE / step["script"]), *step["args"]]
+    steps = [
+        {"label": "Generate kit", "script": "apply_assist.py", "args": args},
+        *SYNC_STEPS,
+    ]
+    return _started(*_start_chain(steps, step_id="generate_kit"))
 
-        try:
-            proc = subprocess.Popen(
-                cmd,
-                cwd=BASE,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                bufsize=1,
-                encoding="utf-8",
-                errors="replace",
-                env=SUBPROCESS_ENV,
-            )
-            for line in proc.stdout:
-                with RUNS_LOCK:
-                    RUNS[run_id]["lines"].append(line.rstrip("\n"))
-            proc.wait()
 
-        except Exception as error:  # noqa: BLE001
-            with RUNS_LOCK:
-                RUNS[run_id]["lines"].append(f"[!] Failed to start: {error}")
-                RUNS[run_id]["status"] = "failed"
-                RUNS[run_id]["returncode"] = -1
-            return
+# ----------------------------------------------------------------------
+# Add a job by hand: analyze it + build its kit
+# ----------------------------------------------------------------------
+@app.route("/api/jobs/new", methods=["POST"])
+def api_new_job():
+    body = request.get_json(silent=True) or {}
+    fields = {
+        key: str(body.get(key) or "").strip()
+        for key in ("company", "title", "url", "location", "stipend", "description")
+    }
 
-        if proc.returncode != 0:
-            with RUNS_LOCK:
-                RUNS[run_id]["lines"].append(
-                    f"\n[!] {step['label']} failed (exit {proc.returncode}). Stopping."
-                )
-                RUNS[run_id]["status"] = "failed"
-                RUNS[run_id]["returncode"] = proc.returncode
-            return
+    if not fields["description"] and not fields["url"]:
+        return jsonify({
+            "error": "Paste the job description, or give the posting URL."
+        }), 400
 
-    with RUNS_LOCK:
-        RUNS[run_id]["lines"].append("\n=== Pipeline complete ===")
-        RUNS[run_id]["status"] = "done"
-        RUNS[run_id]["returncode"] = 0
+    MANUAL_JOBS_DIR.mkdir(exist_ok=True)
+    payload = MANUAL_JOBS_DIR / f"{datetime.now():%Y%m%d-%H%M%S}.json"
+    payload.write_text(
+        json.dumps(fields, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+
+    steps = [
+        {
+            "label": "Analyze + build kit",
+            "script": "add_job.py",
+            "args": ["--input", str(payload)],
+        },
+        *SYNC_STEPS,
+    ]
+    return _started(*_start_chain(steps, step_id="new_job"))
+
+
+# ----------------------------------------------------------------------
+# Profile: current Career Brain + resume upload
+# ----------------------------------------------------------------------
+@app.route("/api/profile")
+def api_profile():
+    import career_brain
+    import jd_enricher
+
+    profile = career_brain.load_profile()
+    return jsonify({
+        "career_brain": career_brain.build_career_brain(profile).strip(),
+        "resume_updated_at": profile.get("resume_updated_at"),
+        "firecrawl": jd_enricher.is_configured(),
+    })
+
+
+@app.route("/api/profile/resume", methods=["POST"])
+def api_upload_resume():
+    upload = request.files.get("resume")
+    if upload is None or not upload.filename:
+        return jsonify({"error": "Choose a resume file first."}), 400
+
+    suffix = Path(upload.filename).suffix.lower()
+    if suffix not in RESUME_EXTENSIONS:
+        return jsonify({
+            "error": "Upload a PDF, DOCX, MD or TXT resume."
+        }), 400
+
+    RESUME_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    saved = RESUME_UPLOAD_DIR / (
+        f"{datetime.now():%Y%m%d-%H%M%S}_"
+        f"{secure_filename(upload.filename) or 'resume' + suffix}"
+    )
+    upload.save(saved)
+
+    steps = [{
+        "label": "Update profile from resume",
+        "script": "setup_profile.py",
+        "args": ["--resume", str(saved)],
+    }]
+    return _started(*_start_chain(steps, step_id="resume"))
 
 
 @app.route("/api/run/<run_id>/status")

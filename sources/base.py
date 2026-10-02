@@ -57,6 +57,40 @@ def make_job_id(source, url, title=""):
     return f"{source}-{digest}"
 
 
+# Hosts whose job links carry per-search tracking parameters (?ckey=...,
+# ?se=...). The path alone identifies the posting, so the query string is
+# dropped when comparing — the stored `url` itself is never modified.
+TRACKING_QUERY_HOSTS = ("jooble.org", "adzuna.")
+
+
+def canonical_url(url):
+    """Comparison-only form of a job URL (lowercased, tracking query removed)."""
+    url = (url or "").strip().lower()
+    if not url:
+        return ""
+    host = url.split("//", 1)[-1].split("/", 1)[0]
+    if any(marker in host for marker in TRACKING_QUERY_HOSTS):
+        url = url.split("?", 1)[0].split("#", 1)[0]
+    return url.rstrip("/")
+
+
+def identity_keys(job):
+    """
+    Every key under which a job counts as "the same posting":
+    its canonical URL, and company+title when the company is known.
+    Two jobs are duplicates if they share any key.
+    """
+    keys = set()
+    url = canonical_url(job.get("url"))
+    if url:
+        keys.add("url:" + url)
+    company = clean_text(job.get("company")).lower()
+    title = clean_text(job.get("title")).lower()
+    if company and title:
+        keys.add(f"ct:{company}|{title}")
+    return keys
+
+
 def _request(method, url, *, params=None, json=None, headers=None,
              timeout=DEFAULT_TIMEOUT, retries=2):
     merged = {"User-Agent": USER_AGENT, "Accept": "application/json"}

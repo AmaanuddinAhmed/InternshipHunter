@@ -10,7 +10,9 @@ from openpyxl.worksheet.datavalidation import DataValidation
 
 KEEP = {"APPLY ASAP", "APPLY", "CONSIDER"}
 
+
 APPLY_STATUSES = [
+    "Ready to Apply",
     "NOT APPLIED",
     "APPLIED",
     "REJECTED",
@@ -102,7 +104,7 @@ def build_dashboard(path):
 
     validation = DataValidation(
         type="list",
-        formula1='"NOT APPLIED,APPLIED,REJECTED,WITHDRAWN"',
+        formula1='"' + ",".join(APPLY_STATUSES) + '"',
         allow_blank=True
     )
 

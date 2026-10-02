@@ -7,7 +7,8 @@ function escapeHtml(str) {
   return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function recClass(rec) {
@@ -17,6 +18,59 @@ function recClass(rec) {
   if (r === "APPLY") return "apply";
   if (r === "CONSIDER") return "consider";
   return "skip";
+}
+
+// Follow a background run started by the server: stream its log into
+// logEl once a second and call onFinish(ok) when it ends. Used by the
+// kit / add-job / resume buttons (the pipeline buttons keep their own
+// poller further down).
+function followRun(runId, logEl, onFinish) {
+  const timer = setInterval(() => {
+    fetch(`/api/run/${runId}/status`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.error) {
+          clearInterval(timer);
+          onFinish(false);
+          return;
+        }
+        logEl.textContent = data.lines.join("\n");
+        logEl.scrollTop = logEl.scrollHeight;
+        if (data.status === "done" || data.status === "failed") {
+          clearInterval(timer);
+          onFinish(data.status === "done");
+        }
+      })
+      .catch(() => {
+        clearInterval(timer);
+        onFinish(false);
+      });
+  }, 1000);
+}
+
+// POST that starts a run, then follows it. `button` is disabled meanwhile.
+function startRun(url, options, logEl, button, onFinish) {
+  logEl.classList.remove("hidden");
+  logEl.textContent = "Starting...";
+  button.disabled = true;
+
+  fetch(url, options)
+    .then((r) => r.json())
+    .then((data) => {
+      if (data.error) {
+        logEl.textContent = "Error: " + data.error;
+        button.disabled = false;
+        return;
+      }
+      followRun(data.run_id, logEl, (ok) => {
+        button.disabled = false;
+        onFinish(ok);
+      });
+    })
+    .catch(() => {
+      logEl.textContent = "Couldn't start. Is the server still running?";
+      button.disabled = false;
+    });
 }
 
 // ------------------------------------------------------------------
@@ -230,6 +284,94 @@ if (jobListEl) {
         });
     });
   });
+
+  // --- Add a job by hand ---
+
+  const njSubmit = document.getElementById("nj-submit");
+
+  njSubmit.addEventListener("click", () => {
+    const field = (id) => document.getElementById(id).value.trim();
+    const body = {
+      company: field("nj-company"),
+      title: field("nj-title"),
+      url: field("nj-url"),
+      location: field("nj-location"),
+      stipend: field("nj-stipend"),
+      description: field("nj-description"),
+    };
+
+    if (!body.description && !body.url) {
+      alert("Paste the job description, or give the posting URL.");
+      return;
+    }
+
+    startRun(
+      "/api/jobs/new",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      },
+      logEl,
+      njSubmit,
+      (ok) => {
+        if (!ok) return;
+        [
+          "nj-company",
+          "nj-title",
+          "nj-url",
+          "nj-location",
+          "nj-stipend",
+          "nj-description",
+        ].forEach((id) => (document.getElementById(id).value = ""));
+        loadSummary();
+        loadJobs();
+      },
+    );
+  });
+
+  // --- Profile + resume upload ---
+
+  function loadProfile() {
+    fetch("/api/profile")
+      .then((r) => r.json())
+      .then((data) => {
+        document.getElementById("career-brain").textContent =
+          data.career_brain || "No profile found.";
+        document.getElementById("resume-updated").textContent =
+          data.resume_updated_at
+            ? "Last resume update: " + data.resume_updated_at.replace("T", " ")
+            : "";
+        document.getElementById("nj-hint").textContent = data.firecrawl
+          ? "Firecrawl is on: a URL alone is enough."
+          : "No Firecrawl key: paste the description (URL-only works for simple pages).";
+      })
+      .catch(() => {});
+  }
+
+  const resumeSubmit = document.getElementById("resume-submit");
+
+  resumeSubmit.addEventListener("click", () => {
+    const file = document.getElementById("resume-file").files[0];
+    if (!file) {
+      alert("Choose a resume file first.");
+      return;
+    }
+    const form = new FormData();
+    form.append("resume", file);
+
+    startRun(
+      "/api/profile/resume",
+      { method: "POST", body: form },
+      logEl,
+      resumeSubmit,
+      (ok) => {
+        if (ok) loadProfile();
+      },
+    );
+  });
+
+  loadProfile();
 }
 
 // ------------------------------------------------------------------
@@ -268,12 +410,17 @@ if (detailEl) {
       ${job.hard_blockers ? `<p class="muted" style="color:var(--asap); margin-top:10px;"><strong>Hard blockers:</strong> ${escapeHtml(job.hard_blockers)}</p>` : ""}
       ${job.red_flags ? `<p class="muted" style="margin-top:6px;"><strong>Red flags:</strong> ${escapeHtml(job.red_flags)}</p>` : ""}
 
+      
       <div class="detail-actions">
-        <a class="btn btn-outline" href="${escapeHtml(job.url)}" target="_blank" rel="noopener">Open job posting ↗</a>
+        ${/^https?:\/\//i.test(job.url || "") ? `<a class="btn btn-outline" href="${escapeHtml(job.url)}" target="_blank" rel="noopener">Open job posting ↗</a>` : ""}
         <button class="btn ${job.applied ? "btn-outline" : "btn-success"}" id="mark-applied-btn">
           ${job.applied ? "Mark as Not Applied" : "Mark as Applied"}
         </button>
+        <button class="btn ${kit ? "btn-outline" : "btn-primary"}" id="generate-kit-btn">
+          ${kit ? "Regenerate kit" : "Generate application kit"}
+        </button>
       </div>
+      <pre id="kit-log" class="pipeline-log run-log hidden"></pre>
     </div>`;
 
     if (kit) {
@@ -336,7 +483,7 @@ if (detailEl) {
         </div>`;
       }
     } else {
-      html += `<div class="no-kit-notice">No application kit has been generated for this job yet. Run "4. Apply-Assist Kits" from the dashboard to generate one (only APPLY / APPLY ASAP jobs get kits).</div>`;
+      html += `<div class="no-kit-notice">No application kit has been generated for this job yet. The daily pipeline only builds kits for APPLY / APPLY ASAP jobs — use "Generate application kit" above to build one for this job now.</div>`;
     }
 
     detailEl.innerHTML = html;
@@ -362,6 +509,30 @@ if (detailEl) {
           .catch(() => alert("Couldn't save. Try again."));
       });
 
+    const kitBtn = document.getElementById("generate-kit-btn");
+
+    kitBtn.addEventListener("click", () => {
+      if (
+        kit &&
+        !confirm("Replace the existing kit with a newly generated one?")
+      ) {
+        return;
+      }
+      startRun(
+        `/api/job/${encodeURIComponent(jobKey)}/generate_kit`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ force: Boolean(kit) }),
+        },
+        document.getElementById("kit-log"),
+        kitBtn,
+        (ok) => {
+          if (ok) loadDetail();
+        },
+      );
+    });
+
     document.querySelectorAll("[data-copy-target]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = document.getElementById(btn.dataset.copyTarget);
@@ -373,16 +544,20 @@ if (detailEl) {
     });
   }
 
-  fetch(`/api/job/${encodeURIComponent(jobKey)}`)
-    .then((r) => r.json())
-    .then((data) => {
-      if (data.error) {
-        detailEl.innerHTML = `<p class="muted">${escapeHtml(data.error)}</p>`;
-        return;
-      }
-      renderDetail(data.job, data.kit);
-    })
-    .catch(() => {
-      detailEl.innerHTML = '<p class="muted">Couldn\'t load this job.</p>';
-    });
+  function loadDetail() {
+    fetch(`/api/job/${encodeURIComponent(jobKey)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.error) {
+          detailEl.innerHTML = `<p class="muted">${escapeHtml(data.error)}</p>`;
+          return;
+        }
+        renderDetail(data.job, data.kit);
+      })
+      .catch(() => {
+        detailEl.innerHTML = '<p class="muted">Couldn\'t load this job.</p>';
+      });
+  }
+
+  loadDetail();
 }

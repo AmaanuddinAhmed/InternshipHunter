@@ -4,9 +4,11 @@
     "degree": "MCA",
     "university": "PES University",
     "campus": "Ring Road Campus, Bengaluru",
-    "cgpa": 8.48
+    "cgpa": 8.48,
+    "full_name": "Amaanuddin Ahmed",
+    "duration": "2025–2027",
+    "location": "Bengaluru, India"
   },
-
   "target_roles": {
     "primary": [
       "Software Engineer Intern",
@@ -22,7 +24,6 @@
       "Cloud Intern"
     ]
   },
-
   "preferences": {
     "minimum_stipend_inr": 25000,
     "ppo_priority": "high",
@@ -30,7 +31,6 @@
     "remote": true,
     "global_remote": true
   },
-
   "skills": {
     "strong": [
       "JavaScript",
@@ -51,30 +51,54 @@
     "working": ["Python", "Java", "AWS", "Docker", "Kubernetes", "CI/CD"],
     "other": ["MERN Stack", "PHP", "SQL", "C#", "Figma", "Angular Material"]
   },
-
   "projects": [
     {
       "name": "StaySphere",
       "type": "MERN Stack",
-      "description": "An Airbnb-style accommodation platform built using the MERN stack."
+      "description": "An Airbnb-style accommodation platform built using the MERN stack.",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "EJS",
+        "Passport.js",
+        "Joi",
+        "Cloudinary"
+      ]
     },
     {
       "name": "Zenvest",
       "type": "Web Application",
-      "description": "A Zerodha-inspired trading platform project."
+      "description": "A Zerodha-inspired trading platform project.",
+      "technologies": [
+        "MERN Stack",
+        "JWT",
+        "Joi",
+        "Twelve Data API",
+        "Vercel",
+        "Render",
+        "MongoDB Atlas"
+      ]
+    },
+    {
+      "name": "DriftGuard",
+      "type": "Hackathon Build — Société Générale Event · Team Astra",
+      "description": "A MERN-stack tool built with a teammate to flag real-time configuration and security drift, mapping detected changes to NIST and GDPR compliance controls.",
+      "technologies": ["MERN Stack", "Vercel", "Render", "MongoDB Atlas"]
     },
     {
       "name": "Mindora",
       "type": "AI Web Application",
-      "description": "A ChatGPT-style application using OpenAI APIs."
+      "description": "A ChatGPT-style application using OpenAI APIs.",
+      "on_resume": false
     },
     {
       "name": "Contexa",
       "type": "MCA Capstone",
-      "description": "A context-aware people ecosystem focused on people, context, matching, compatibility prediction, recommendations and measurable outcomes."
+      "description": "A context-aware people ecosystem focused on people, context, matching, compatibility prediction, recommendations and measurable outcomes.",
+      "on_resume": false
     }
   ],
-
   "application_strategy": {
     "prioritize": [
       "Strong technical alignment",
@@ -89,5 +113,30 @@
       "Senior-level positions",
       "Roles with clear hard eligibility blockers"
     ]
-  }
+  },
+  "experience": [
+    {
+      "role": "Full Stack Developer Intern",
+      "company": "Sunflower Trip",
+      "period": "Jul 2025 – Sep 2025",
+      "technologies": ["Angular", "Node.js", "Express", "MySQL"],
+      "highlights": [
+        "Built a production-ready tours and travel management system using Angular, Node.js, Express, and MySQL, taken live for real customer bookings.",
+        "Implemented role-based access control (RBAC) with secure authentication, separating admin and end-user workflows across the platform.",
+        "Designed an admin dashboard for managing bookings, users, and travel packages, streamlining day-to-day operations for the internal team."
+      ]
+    },
+    {
+      "role": "Full Stack Developer",
+      "company": "Freelance — Client: Australian Restaurant",
+      "period": "Aug 2024 – May 2025",
+      "technologies": ["Angular", "C#", "MS SQL Server", "Figma", "Azure"],
+      "highlights": [
+        "Delivered a full-featured Point of Sale (POS) system for a restaurant client, replacing manual order tracking with a live digital workflow.",
+        "Built the frontend in Angular with a C# and MS SQL Server backend, ensuring reliable, low-latency transaction handling for daily operations.",
+        "Designed the UI/UX in Figma and deployed the system on Azure, delivering an end-to-end solution used in a live business setting."
+      ]
+    }
+  ],
+  "certifications": ["Alpha (DSA with Java) — Apna College"]
 }

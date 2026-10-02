@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 
 from sources import enabled_sources
+from sources.base import identity_keys
 from sources.config import SEARCH_QUERIES, LOCATIONS
 
 
@@ -18,31 +19,30 @@ BASE = Path(__file__).resolve().parent
 OUTPUT_FILE = BASE / "jobs_raw.json"
 
 
+
 def dedupe(jobs):
-    """De-duplicate by URL (primary identity); fall back to company+title."""
-    seen_url = set()
-    seen_ct = set()
+    """
+    De-duplicate on the shared job identity (sources.base.identity_keys):
+    canonical URL — so the same Jooble/Adzuna posting found through ten
+    different search queries counts once — plus company+title.
+    The first occurrence wins.
+    """
+    seen = set()
     out = []
 
     for job in jobs:
-        url = (job.get("url") or "").strip().lower()
+        keys = identity_keys(job)
 
-        if url:
-            if url in seen_url:
-                continue
-            seen_url.add(url)
-        else:
-            ct = (
-                (job.get("company") or "").strip().lower(),
-                (job.get("title") or "").strip().lower(),
-            )
-            if ct in seen_ct:
-                continue
-            seen_ct.add(ct)
+        if not keys:
+            # No URL and no company/title: nothing to compare on, keep it.
+            out.append(job)
+            continue
 
+        if keys & seen:
+            continue
+
+        seen |= keys
         out.append(job)
-
-    return out
 
 
 def main():

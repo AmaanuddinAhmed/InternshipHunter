@@ -9,6 +9,7 @@ OUTPUT_FILE = "jobs_filtered.json"
 # Roles we actively want
 TARGET_TERMS = [
     "software engineer",
+    "software engineering",
     "software developer",
     "software development",
     "sde",
@@ -53,13 +54,31 @@ SENIOR_TERMS = [
 # Internship/apprenticeship/entry-level signals
 ENTRY_TERMS = [
     "intern",
+    "interns",
     "internship",
+    "internships",
     "apprentice",
+    "apprenticeship",
     "trainee",
     "fresher",
+    "freshers",
     "entry level",
     "entry-level",
     "graduate",
+]
+
+# Entry signals that are trusted when they appear only in the body text.
+# "graduate" / "entry level" are left out on purpose: in a description they
+# usually mean "graduate degree" or describe someone else's role.
+BODY_ENTRY_TERMS = [
+    "intern",
+    "interns",
+    "internship",
+    "internships",
+    "fresher",
+    "freshers",
+    "trainee",
+    "stipend",
 ]
 
 
@@ -75,7 +94,7 @@ def _contains_word(text, term):
     "Lead Generation Intern" or "sr" from matching inside another word,
     while still allowing multi-word phrases like "3+ years" to match as-is.
     """
-    if " " in term or "+" in term:
+    if "+" in term:
         return term in text
     return re.search(rf"\b{re.escape(term)}\b", text) is not None
 
@@ -95,8 +114,16 @@ def is_relevant(job):
     # itself being a senior role, so they're excluded from this check.
     senior_scope = f"{title} {job_type}"
 
-    has_target_role = any(term in combined for term in TARGET_TERMS)
-    has_entry_signal = any(term in combined for term in ENTRY_TERMS)
+    # Whole-word matching throughout, so "intern" no longer matches
+    # "internal"/"international" and "react" no longer matches "reactive".
+    has_target_role = any(_contains_word(combined, term) for term in TARGET_TERMS)
+
+    # The entry-level signal must come from the title / job type, or be an
+    # unambiguous internship word in the body.
+    has_entry_signal = (
+        any(_contains_word(senior_scope, term) for term in ENTRY_TERMS)
+        or any(_contains_word(combined, term) for term in BODY_ENTRY_TERMS)
+    )
 
     # Obvious senior positions are removed before AI analysis.
     is_senior = any(_contains_word(senior_scope, term) for term in SENIOR_TERMS)

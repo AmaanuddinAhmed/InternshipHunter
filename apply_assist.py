@@ -1,3 +1,4 @@
+import argparse
 import json
 import re
 import time
@@ -5,8 +6,9 @@ from pathlib import Path
 
 from google import genai
 
-import analyze_job
 
+import analyze_job
+import jd_enricher
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -460,6 +462,9 @@ MEDIUM
 LOW
 - JD is thin or candidate alignment cannot be evaluated confidently.
 
+A JOB DESCRIPTION shorter than roughly 120 words is a snippet, not a full
+posting: confidence can never be HIGH for it.
+
 ============================================================
 OUTPUT
 ============================================================
@@ -647,8 +652,9 @@ def generate_application_kit(
         + job_context
     )
 
+
     response = client.models.generate_content(
-        model="gemini-3.5-flash-lite",
+        model=analyze_job.MODEL,
         contents=prompt,
         config={
             "response_mime_type": "application/json",
@@ -656,7 +662,51 @@ def generate_application_kit(
         }
     )
 
+
     return json.loads(response.text)
+
+
+def generate_with_retry(client, job, profile, resume):
+    """
+    Generate a kit, waiting once and retrying if Gemini rate-limits us.
+    """
+    try:
+        return generate_application_kit(client, job, profile, resume)
+    except Exception as error:
+        error_text = str(error)
+
+        if not (
+            "429" in error_text
+            or "RESOURCE_EXHAUSTED" in error_text
+            or "quota" in error_text.lower()
+        ):
+            raise
+
+        wait_seconds = extract_retry_seconds(error)
+
+        print("    ⚠ Gemini rate limit.")
+        print(f"    Waiting {wait_seconds}s...")
+
+        time.sleep(wait_seconds)
+
+        return generate_application_kit(client, job, profile, resume)
+
+
+def best_job_record(filtered_job, analysis_job):
+    """
+    The same job can exist in jobs_filtered.json (snippet) and inside its
+    analysis (possibly with the full posting fetched later). Use whichever
+    has the longer description.
+    """
+    if not filtered_job:
+        return analysis_job
+    if not analysis_job:
+        return filtered_job
+
+    def length(job):
+        return len(str(job.get("description") or ""))
+
+    return analysis_job if length(analysis_job) > length(filtered_job) else filtered_job
 
 
 # ============================================================
@@ -690,23 +740,16 @@ def clean_generated_text(text):
     for old, new in replacements.items():
         text = text.replace(old, new)
 
-    # Fix common missing spaces between lowercase/uppercase word boundaries.
-    text = re.sub(
-        r"([a-z])([A-Z][a-z]+)",
-        r"\1 \2",
-        text
-    )
+    # NOTE: there used to be two more "fixes" here — a space at every
+    # lowercase/uppercase boundary and a space after every full stop.
+    # They damaged correct text ("Node.js" -> "Node. js", "JavaScript" ->
+    # "Java Script", "StaySphere" -> "Stay Sphere"), so they are gone.
+    # Glued words are handled by the explicit replacements above only.
 
-    # Fix missing spaces after punctuation where the next word is obvious.
+    # A comma followed directly by a letter is always a missing space.
     text = re.sub(
         r",([A-Za-z])",
         r", \1",
-        text
-    )
-
-    text = re.sub(
-        r"\.([A-Za-z])",
-        r". \1",
         text
     )
 
@@ -875,6 +918,19 @@ def save_application_kit(
 
 def main():
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--url",
+        help="Generate a kit for this one job only, whatever its "
+             "recommendation (used by the web UI's Generate Kit button).",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Regenerate even if a kit already exists.",
+    )
+    args = parser.parse_args()
+
     print("""
 ===========================================
        AMAAN INTERNSHIP APPLY-ASSIST
@@ -955,26 +1011,39 @@ def main():
         if not isinstance(analysis, dict):
             continue
 
-        recommendation = get_recommendation(
-            analysis
-        )
-
-        if recommendation not in {
-            "APPLY",
-            "APPLY ASAP"
-        }:
-            continue
-
         key = get_analysis_key(
             analysis
         )
 
-        job = jobs_by_key.get(key)
+        analysis_job = get_analysis_job(
+            analysis
+        )
 
-        if not job:
-            job = get_analysis_job(
+        if args.url:
+            # Single-job mode: match on the real job URL, any recommendation.
+            if args.url.strip() not in {
+                key,
+                str(analysis_job.get("url") or "").strip(),
+            }:
+                continue
+        else:
+            recommendation = get_recommendation(
                 analysis
             )
+
+            if recommendation not in {
+                "APPLY",
+                "APPLY ASAP"
+            }:
+                continue
+
+        job = best_job_record(
+            jobs_by_key.get(key)
+            or jobs_by_key.get(
+                str(analysis_job.get("url") or "").strip()
+            ),
+            analysis_job
+        )
 
         if not job:
             continue
@@ -986,11 +1055,22 @@ def main():
             )
         )
 
+    if args.url and not candidates:
+        # Not analyzed yet, but present in the filtered list.
+        job = jobs_by_key.get(args.url.strip())
+
+        if job:
+            candidates.append((job, {}))
+
     print(
         f"Apply candidates: {len(candidates)}"
     )
 
     if not candidates:
+        if args.url:
+            print(f"\nERROR: no job found for URL: {args.url}")
+            raise SystemExit(1)
+
         print(
             "\nNo APPLY / APPLY ASAP jobs "
             "require application kits."
@@ -1041,22 +1121,25 @@ def main():
             f"{company} — {title}"
         )
 
-        # Do not regenerate existing kits.
-        if kit_file.exists():
-
+        # Do not regenerate existing kits (unless --force).
+        if kit_file.exists() and not args.force:
             print(
                 "    ↳ application kit already exists — skipping"
             )
-
             skipped += 1
-
             continue
 
         try:
+            # A kit written from a 300-character snippet is weak. If the
+            # full posting can be fetched, write the kit from that.
+            full_job = jd_enricher.enrich_job(job)
 
-            kit = generate_application_kit(
+            if full_job is not job:
+                print("    ↳ full posting fetched for this kit")
+
+            kit = generate_with_retry(
                 client,
-                job,
+                full_job,
                 profile,
                 resume
             )
@@ -1077,77 +1160,13 @@ def main():
                 f"    → {folder.relative_to(BASE_DIR)}"
             )
 
+
         except Exception as error:
+            failed += 1
 
-            error_text = str(error)
-
-            # ------------------------------------------------
-            # Rate-limit handling
-            # ------------------------------------------------
-
-            if (
-                "429" in error_text
-                or "RESOURCE_EXHAUSTED"
-                in error_text
-                or "quota"
-                in error_text.lower()
-            ):
-
-                wait_seconds = (
-                    extract_retry_seconds(
-                        error
-                    )
-                )
-
-                print(
-                    f"    ⚠ Gemini rate limit."
-                )
-
-                print(
-                    f"    Waiting {wait_seconds}s..."
-                )
-
-                time.sleep(
-                    wait_seconds
-                )
-
-                # Retry once.
-                try:
-
-                    kit = generate_application_kit(
-                        client,
-                        job,
-                        profile,
-                        resume
-                    )
-
-                    save_application_kit(
-                        folder,
-                        job,
-                        kit
-                    )
-
-                    generated += 1
-
-                    print(
-                        "    ✓ application kit generated after retry"
-                    )
-
-                except Exception as retry_error:
-
-                    failed += 1
-
-                    print(
-                        f"    ✗ retry failed: {retry_error}"
-                    )
-
-            else:
-
-                failed += 1
-
-                print(
-                    f"    ✗ ERROR: {error}"
-                )
+            print(
+                f"    ✗ ERROR: {error}"
+            )
 
     # --------------------------------------------------------
     # Summary
@@ -1180,6 +1199,9 @@ Nothing was submitted automatically.
 All generated material is for your review.
 ===========================================
 """)
+
+    if args.url and failed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

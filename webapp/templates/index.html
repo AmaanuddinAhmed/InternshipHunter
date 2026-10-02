@@ -39,6 +39,52 @@ endblock %} {% block content %}
   <pre id="pipeline-log" class="pipeline-log hidden"></pre>
 </section>
 
+<section class="tools-panel">
+  <details id="new-job-panel">
+    <summary>➕ Add a job I found myself</summary>
+    <p class="muted">
+      Paste the job description, or just the posting link. It is scored against
+      your profile and a full application kit is built for it.
+    </p>
+    <div class="form-grid">
+      <input type="text" id="nj-company" placeholder="Company (optional)" />
+      <input type="text" id="nj-title" placeholder="Role (optional)" />
+      <input type="text" id="nj-url" placeholder="Posting URL" />
+      <input type="text" id="nj-location" placeholder="Location (optional)" />
+      <input type="text" id="nj-stipend" placeholder="Stipend (optional)" />
+    </div>
+    <textarea
+      id="nj-description"
+      rows="8"
+      placeholder="Paste the full job description here. Leave empty to fetch it from the URL."
+    ></textarea>
+    <div class="form-actions">
+      <button class="btn btn-primary" id="nj-submit">
+        Analyze + create kit
+      </button>
+      <span class="muted" id="nj-hint"></span>
+    </div>
+  </details>
+
+  <details id="profile-panel">
+    <summary>👤 My profile &amp; resume</summary>
+    <p class="muted">
+      Upload your latest resume (PDF, DOCX, MD or TXT). Your profile and the
+      Career Brain below are rebuilt from it. Only what is actually on the
+      resume is used; your previous profile is backed up first.
+    </p>
+    <div class="form-actions">
+      <input type="file" id="resume-file" accept=".pdf,.docx,.md,.txt" />
+      <button class="btn btn-primary" id="resume-submit">
+        Update from resume
+      </button>
+      <span class="muted" id="resume-updated"></span>
+    </div>
+    <h4>Career Brain — what every job is scored against</h4>
+    <pre id="career-brain" class="career-brain">Loading…</pre>
+  </details>
+</section>
+
 <section class="filters">
   <div class="filter-group">
     <button class="filter-btn active" data-filter="all">All</button>
