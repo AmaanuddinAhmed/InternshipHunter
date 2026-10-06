@@ -44,6 +44,7 @@ def dedupe(jobs):
         seen |= keys
         out.append(job)
 
+    return out
 
 def main():
     print("\n===================================")
