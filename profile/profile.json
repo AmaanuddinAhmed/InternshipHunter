@@ -1,4 +1,9 @@
 {
+  "outreach": {
+    "availability": "full-time from January 2027",
+    "proof_line": "one sentence on the best thing you have shipped",
+    "portfolio": "https://your-portfolio"
+  },
   "candidate": {
     "name": "Amaan",
     "degree": "MCA",

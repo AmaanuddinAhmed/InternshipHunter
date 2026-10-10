@@ -13,4 +13,8 @@ jobs_filtered.json
 analyses.json
 analysis.json
 applications/
-*_backup_before_reset.xlsx
+*_backup_before_reset.xlsx 
+
+leads.json
+outreach.json
+daily.log

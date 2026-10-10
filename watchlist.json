@@ -1,0 +1,77 @@
+[
+  {
+    "company": "Apollo",
+    "ats": "greenhouse",
+    "slug": "apollo"
+  },
+  {
+    "company": "Beyond Appliances",
+    "ats": "greenhouse",
+    "slug": "beyond"
+  },
+  {
+    "company": "Blitz",
+    "ats": "ashby",
+    "slug": "blitz"
+  },
+  {
+    "company": "Bolna AI",
+    "ats": "ashby",
+    "slug": "bolna"
+  },
+  {
+    "company": "Cardboard",
+    "ats": "ashby",
+    "slug": "cardboard"
+  },
+  {
+    "company": "Company A",
+    "ats": "greenhouse",
+    "slug": "company"
+  },
+  {
+    "company": "CRED",
+    "ats": "lever",
+    "slug": "cred"
+  },
+  {
+    "company": "FamPay",
+    "ats": "lever",
+    "slug": "fampay"
+  },
+  {
+    "company": "Gravity",
+    "ats": "greenhouse",
+    "slug": "gravity"
+  },
+  {
+    "company": "IMT Care",
+    "ats": "greenhouse",
+    "slug": "imt"
+  },
+  {
+    "company": "Kinetic Age",
+    "ats": "ashby",
+    "slug": "kinetic"
+  },
+  {
+    "company": "Raven",
+    "ats": "greenhouse",
+    "slug": "raven"
+  },
+  {
+    "company": "Razorpay",
+    "ats": "greenhouse",
+    "slug": "razorpaysoftwareprivatelimited"
+  },
+  {
+    "company": "Rivia.AI",
+    "ats": "ashby",
+    "slug": "rivia"
+  },
+  {
+    "company": "Vinci",
+    "ats": "ashby",
+    "slug": "vinci"
+  }
+]

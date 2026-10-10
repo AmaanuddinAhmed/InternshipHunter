@@ -24,16 +24,3 @@ LOCATIONS = [
     "Bangalore",
     "Remote",
 ]
-
-# Larger set of Indian metros, available for sources that can afford more calls.
-INDIA_METROS = [
-    "Bangalore",
-    "Hyderabad",
-    "Pune",
-    "Delhi",
-    "Mumbai",
-    "Chennai",
-]
-
-# Short terms used by remote boards that filter by keyword/level.
-ENTRY_TERMS = ["intern", "internship", "graduate", "trainee", "junior"]

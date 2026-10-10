@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block title %}Morning brief — InternshipHunter{%
+endblock %} {% block content %}
+<link rel="stylesheet" href="/static/brief.css" />
+
+<section class="brief-head">
+  <div>
+    <h1>Morning brief</h1>
+    <span class="muted" id="brief-date"></span>
+  </div>
+  <div class="week-meter" title="Messages sent in the last 7 days">
+    <span class="num" id="week-sent">–</span>
+    <span class="label">of <span id="week-target">–</span> messages this week</span>
+  </div>
+</section>
+
+<section class="brief-block" id="followups-block">
+  <h2>1 · Follow-ups due <span class="count" id="followups-count"></span></h2>
+  <div id="followups" class="brief-list"></div>
+</section>
+
+<section class="brief-block">
+  <h2>2 · New roles since yesterday <span class="count" id="roles-count"></span></h2>
+  <div id="roles" class="brief-list"></div>
+</section>
+
+<section class="brief-block">
+  <div class="block-head">
+    <h2>3 · Companies to message <span class="count" id="leads-count"></span></h2>
+    <button class="btn btn-outline" id="refresh-leads">Refresh leads</button>
+  </div>
+  <p class="muted">
+    Startups that are hiring or just raised money. Find one engineer or
+    founder there, send a short note, then log it so the follow-up shows up
+    here in 5 days.
+  </p>
+  <div id="leads" class="brief-list"></div>
+</section>
+
+<section class="brief-block">
+  <h2>4 · Five-minute LinkedIn check</h2>
+  <p class="muted">
+    Opens LinkedIn post search, newest first. Kept manual on purpose —
+    automating LinkedIn gets accounts restricted.
+  </p>
+  <div id="linkedin" class="chip-row"></div>
+</section>
+
+<section class="brief-block">
+  <h2>Log a message I sent</h2>
+  <div class="form-grid">
+    <input type="text" id="o-company" placeholder="Company" />
+    <input type="text" id="o-person" placeholder="Person (optional)" />
+    <input type="text" id="o-link" placeholder="Their profile / thread link (optional)" />
+    <select id="o-channel">
+      <option value="linkedin">LinkedIn</option>
+      <option value="email">Email</option>
+      <option value="referral">Referral ask</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+  <textarea id="o-draft" rows="5" placeholder="Press “Draft message” for a starting point, edit it, send it yourself, then press “Log as sent”."></textarea>
+  <div class="form-actions">
+    <button class="btn btn-outline" id="o-draft-btn">Draft message</button>
+    <button class="btn btn-outline" id="o-copy-btn">Copy</button>
+    <button class="btn btn-primary" id="o-log-btn">Log as sent</button>
+    <span class="muted" id="o-hint"></span>
+  </div>
+</section>
+
+<section class="brief-block">
+  <h2>Waiting on a reply <span class="count" id="open-count"></span></h2>
+  <div id="open-outreach" class="brief-list"></div>
+</section>
+
+<section class="brief-block">
+  <h2>Watchlist <span class="count" id="watch-count"></span></h2>
+  <p class="muted">
+    Careers pages checked on every pipeline run. Add a Greenhouse, Lever or
+    Ashby careers link, or just a company name.
+  </p>
+  <div class="form-actions">
+    <input type="text" id="w-value" placeholder="https://jobs.lever.co/acme  or  Acme" />
+    <button class="btn btn-primary" id="w-add">Add to watchlist</button>
+    <span class="muted" id="w-hint"></span>
+  </div>
+  <div id="watchlist" class="chip-row"></div>
+</section>
+
+{% endblock %} {% block scripts %}
+<script src="/static/brief.js"></script>
+{% endblock %}

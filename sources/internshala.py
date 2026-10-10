@@ -1,18 +1,51 @@
 """
 Internshala adapter — public internship listings.
 
-Best-effort adapter:
-- Uses public listing pages.
-- Does not log in.
-- Does not submit applications.
-- Fails gracefully if the site blocks requests or changes markup.
+Reads the software / web development category pages (Bangalore and
+work-from-home) instead of the all-categories front page, and pulls the
+company, location and stipend out of each listing card.
+
+Best-effort: no login, nothing submitted; if a page is blocked or the
+markup changes, it logs a warning and returns what it could read.
 """
 
 import re
 
 from .base import Source, get_text, strip_html
 
-BASE_URL = "https://internshala.com/internships/"
+
+PAGES = [
+    "https://internshala.com/internships/software-development-internship-in-bangalore/",
+    "https://internshala.com/internships/web-development-internship-in-bangalore/",
+    "https://internshala.com/internships/work-from-home-software-development-internships/",
+    "https://internshala.com/internships/work-from-home-web-development-internships/",
+]
+
+MAX_JOBS = 60
+
+DETAIL_LINK = re.compile(
+    r'<a[^>]+href=["\'](?P<url>[^"\']*/internship/detail/[^"\']+)["\'][^>]*>'
+    r'(?P<title>.*?)</a>',
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def _by_class(card, class_fragment):
+    """Text of the first element whose class attribute contains the fragment."""
+    match = re.search(
+        r'<(\w+)[^>]*class=["\'][^"\']*' + re.escape(class_fragment)
+        + r'[^"\']*["\'][^>]*>(.*?)</\1>',
+        card, re.IGNORECASE | re.DOTALL,
+    )
+    return strip_html(match.group(2)) if match else ""
+
+
+def _company_from_url(url):
+    """.../detail/<role>-internship-at-acme-labs1790309126  ->  'Acme Labs'"""
+    match = re.search(r"-at-([a-z0-9-]+?)\d{6,}/?$", url.lower())
+    if not match:
+        return ""
+    return match.group(1).replace("-", " ").strip().title()
 
 
 class InternshalaSource(Source):
@@ -20,142 +53,66 @@ class InternshalaSource(Source):
 
     def search(self, queries=None, locations=None, remote=True):
         jobs = []
-
-        try:
-            html = get_text(
-                BASE_URL,
-                timeout=20,
-            )
-        except Exception as error:  # noqa: BLE001
-            self.log(f"WARNING: {error}")
-            return []
-
-        if not html:
-            return []
-
-        # Internshala markup can change frequently.
-        # Keep extraction deliberately conservative.
-        pattern = re.compile(
-            r'href=["\']([^"\']*/internship/detail/[^"\']+)["\']'
-            r'[^>]*>(.*?)</a>',
-            re.IGNORECASE | re.DOTALL,
-        )
-
         seen = set()
 
-        for match in pattern.finditer(html):
-
-            url = match.group(1)
-            title_html = match.group(2)
-
-            title = strip_html(title_html).strip()
-
-            if not title or url in seen:
-                continue
-
-            seen.add(url)
-
-            if url.startswith("/"):
-                url = "https://internshala.com" + url
-
-            haystack = title.lower() 
-
-            # ------------------------------------------------
-            # HARD EXCLUSIONS
-            # ------------------------------------------------
-
-            excluded_terms = (
-                "sales",
-                "business development",
-                "business development (sales)",
-                "marketing",
-                "human resources",
-                "hr",
-                "recruitment",
-                "recruiter",
-                "content writing",
-                "content writer",
-                "social media",
-                "customer support",
-                "customer service",
-                "telecalling",
-                "telecaller",
-                "operations",
-                "finance",
-                "accounts",
-                "graphic design",
-                "video editing",
-                "law",
-                "legal",
-                "management",
-            )
-
-            if any(term in haystack for term in excluded_terms):
-                continue
-
-            technical_terms = (
-                "software",
-                "software engineer",
-                "software engineering",
-                "software developer",
-                "developer",
-                "software development",
-                "web development",
-                "application development",
-                "mobile development",
-                "full stack",
-                "fullstack",
-                "frontend",
-                "front end",
-                "backend",
-                "back end",
-                "web developer",
-                "flutter",
-                "android",
-                "ios",
-                "python",
-                "java",
-                "javascript",
-                "react",
-                "node",
-                "django",
-                "php",
-                "machine learning",
-                "artificial intelligence",
-                "ai/ml",
-                "data science",
-                "devops",
-                "cloud",
-                "cyber security",
-                "qa",
-                "testing",
-            )
-
-            # 1. Reject obvious non-tech roles
-            if any(term in haystack for term in excluded_terms):
-                continue
-
-            # 2. Require a genuine technical role
-            if not any(term in haystack for term in technical_terms):
-                continue
-
-            jobs.append(
-                self.normalize(
-                    title=title,
-                    company="",
-                    url=url,
-                    location="India",
-                    job_type="Internship",
-                    snippet=title,
-                    description=title,
-                    posted="",
-                    remote=False,
-                    origin="internshala",
-                    query="software engineering internship",
+        for page_url in PAGES:
+            try:
+                html = get_text(
+                    page_url, timeout=20, headers={"Accept": "text/html"}
                 )
-            )
+            except Exception as error:  # noqa: BLE001
+                self.log(f"WARNING: {page_url} unavailable: {error}")
+                continue
 
-            if len(jobs) >= 25:
+            from_home = "work-from-home" in page_url
+            links = list(DETAIL_LINK.finditer(html or ""))
+            found = 0
+
+            for index, match in enumerate(links):
+                url = match.group("url")
+                title = strip_html(match.group("title"))
+
+                if url.startswith("/"):
+                    url = "https://internshala.com" + url
+
+                # The same card links to the detail page more than once
+                # (title, "View details"); only the titled one is a job.
+                if not title or url in seen or title.lower() == "view details":
+                    continue
+                seen.add(url)
+
+                # Everything up to the next listing's link belongs to this card.
+                end = links[index + 1].start() if index + 1 < len(links) else len(html)
+                card = html[match.end():min(end, match.end() + 6000)]
+
+                company = _by_class(card, "company-name") or _company_from_url(url)
+                location = _by_class(card, "locations") or (
+                    "Work from home" if from_home else "Bangalore"
+                )
+                stipend = _by_class(card, "stipend")
+
+                jobs.append(self.normalize(
+                    title=title,
+                    company=company,
+                    url=url,
+                    location=location,
+                    salary=stipend,
+                    job_type="Internship",
+                    snippet=f"{title} internship at {company}".strip(),
+                    description=f"{title} internship at {company}. "
+                                f"Location: {location}. Stipend: {stipend or 'not shown'}.",
+                    remote=from_home,
+                    origin="internshala.com",
+                    query=page_url.rstrip("/").rsplit("/", 1)[-1],
+                ))
+                found += 1
+
+                if len(jobs) >= MAX_JOBS:
+                    break
+
+            self.log(f"{page_url.rstrip('/').rsplit('/', 1)[-1]}: {found}")
+
+            if len(jobs) >= MAX_JOBS:
                 break
 
         return jobs

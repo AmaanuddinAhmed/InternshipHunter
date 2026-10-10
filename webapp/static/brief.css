@@ -1,0 +1,162 @@
+/* Morning brief page. Uses the colour variables defined in style.css. */
+
+.brief-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.brief-head h1 {
+  margin: 0;
+  font-size: 22px;
+}
+.week-meter {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+}
+.week-meter .num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-right: 6px;
+}
+.week-meter .label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.brief-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.brief-block h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.brief-block .count {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 14px;
+}
+.brief-block p.muted {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+.block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.brief-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.brief-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--bg);
+}
+.brief-row .main {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+.brief-row .title {
+  font-weight: 600;
+}
+.brief-row .sub {
+  font-size: 13px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.brief-row .actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.brief-row .score {
+  font-weight: 700;
+  min-width: 34px;
+  text-align: right;
+}
+.brief-row.due {
+  border-color: var(--asap);
+  background: var(--asap-bg);
+}
+.btn-small {
+  padding: 4px 10px;
+  font-size: 12.5px;
+}
+.tag {
+  display: inline-block;
+  font-size: 11.5px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--consider-bg);
+  color: var(--consider);
+  margin-left: 6px;
+}
+.tag.watch {
+  background: var(--applied-bg);
+  color: var(--applied);
+}
+.tag.funding {
+  background: var(--apply-bg);
+  color: var(--apply);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.chip {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+}
+a.chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.brief-block .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.brief-block input[type="text"],
+.brief-block select,
+.brief-block textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  background: var(--card);
+  color: var(--text);
+}
+.brief-block .form-actions input[type="text"] {
+  flex: 1 1 260px;
+  width: auto;
+}

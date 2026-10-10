@@ -48,6 +48,11 @@ SUBPROCESS_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # resume uploads: 5 MB
 
+# Morning brief page + its API (leads, outreach tracker, watchlist).
+from brief_routes import brief_bp  # noqa: E402
+
+app.register_blueprint(brief_bp)
+
 # ----------------------------------------------------------------------
 # Pipeline step registry — mirrors daily.py exactly, so "Run All" here
 # behaves identically to running `python daily.py` yourself.
@@ -93,6 +98,12 @@ STEPS = [
         "label": "6. Rebuild Dashboard",
         "script": "dashboard.py",
         "args": ["--crm", str(CRM_PATH)],
+    }, 
+    {
+        "id": "leads",
+        "label": "7. Company Leads",
+        "script": "leads.py",
+        "args": [],
     },
 ]
 

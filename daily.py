@@ -34,31 +34,31 @@ def main():
 
     # 1. Discover jobs (multi-source)
     run_step(
-        "1/6  JOB DISCOVERY",
+        "1/7  JOB DISCOVERY",
         "discover.py"
     )
 
     # 2. Remove irrelevant jobs
     run_step(
-        "2/6  JOB PRE-FILTER",
+        "2/7  JOB PRE-FILTER",
         "pipeline.py"
     )
 
     # 3. Analyze only jobs that have not already been analyzed
     run_step(
-        "3/6  GEMINI ANALYSIS",
+        "3/7  GEMINI ANALYSIS",
         "batch_analyzer.py"
     )
 
     # 4. Generate application kits for APPLY / APPLY ASAP jobs
     run_step(
-        "4/6  AI APPLY-ASSIST",
+        "4/7  AI APPLY-ASSIST",
         "apply_assist.py"
     )
 
     # 5. Sync AI results into the CRM
     run_step(
-        "5/6  CRM IMPORT",
+        "5/7  CRM IMPORT",
         "crm_importer.py",
         [
             "--analysis",
@@ -72,9 +72,15 @@ def main():
 
     # 6. Refresh the morning dashboard
     run_step(
-        "6/6  MORNING DASHBOARD",
+        "6/7  MORNING DASHBOARD",
         "dashboard.py",
         ["--crm", str(crm)]
+    )
+
+    # 7. Refresh company leads for the morning brief
+    run_step(
+        "7/7  COMPANY LEADS",
+        "leads.py"
     )
 
     print("""
